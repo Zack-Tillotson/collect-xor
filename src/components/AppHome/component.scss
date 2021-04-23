@@ -1,0 +1,56 @@
+.app-home {
+
+  .app-home__intro {
+    color: #333;
+    font-style: italic;
+  }
+
+  .app-home__new-session {
+    margin-top: var(--pad2);
+    padding: var(--pad);
+
+    border-radius: 8px;
+    border: solid 2px var(--color-primary);
+  }
+
+  .app-home__session-title {
+    margin: 0 0 var(--pad) 0;
+    font-weight: normal;
+    border-bottom: solid 1px #ccc;
+    padding: 0 0 var(--pad) 0;
+  }
+
+  .new-session__attribute {
+    margin-bottom: var(--pad);
+
+    display: flex;
+    flex-flow: row nowrap;
+
+    .new-session__attribute-title {
+      font-size: 1rem;
+      margin: 0;
+      width: 65px;
+      line-height: 35px;
+    }
+
+    .new-session__attribute-value {
+      flex: 1;
+      line-height: 35px;
+      padding: 0 var(--pad);
+    }
+
+    .new-session__change-button {
+      margin: 0;
+    }
+  }
+
+  .app-home__resume-button {
+    text-align: right;
+    margin-top: var(--pad2);
+
+    a {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

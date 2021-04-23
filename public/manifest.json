@@ -1,0 +1,15 @@
+{
+  "short_name": "Who Slow",
+  "name": "Who Slow by Zack Tillotson",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "400x400"
+    }
+  ],
+  "start_url": "/app/",
+  "display": "standalone",
+  "theme_color": "#1D549B",
+  "background_color": "#61C5A7"
+}
