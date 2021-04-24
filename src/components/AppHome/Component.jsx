@@ -5,11 +5,21 @@ import {useDispatch} from 'react-redux'
 import cn from 'classnames'
 
 import Page from 'components/Page'
+import Login from 'components/Login'
 
 import './component.scss'
-import logo from 'assets/bgshelf/logo-400x400.webp'
 
 function Component(props) {
+  
+  if(!props.auth) {
+    return (
+      <Page className="app-home">
+        Please log in to use Boardgame Shelf.
+        <Login />
+      </Page>
+    )
+  }
+
   return (
     <Page className="app-home">
       <h1>Collection</h1>

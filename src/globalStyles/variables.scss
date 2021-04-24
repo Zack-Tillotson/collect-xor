@@ -15,7 +15,7 @@
   --brand-grey-4: #42444E;
   --brand-black: #333;
 
-  /* color scheme */
+  /* color scheme (default light) */
 
   --color-primary: var(--brand-primary);
   --color-primary-offset: var(--brand-primary-offset);
@@ -30,21 +30,6 @@
   --color-contrast-secondary-offset: var(--brand-secondary);
   --color-contrast-font-primary: var(--brand-white);
   --color-contrast-bg: var(--brand-grey-4);
-
-  @media (prefers-color-scheme: light) {
-    --color-primary: var(--brand-primary);
-    --color-primary-offset: var(--brand-primary-offset);
-    --color-secondary: var(--brand-secondary);
-    --color-secondary-offset: var(--brand-secondary-offset);
-    --color-font-primary: var(--brand-grey-4);
-    --color-bg: var(--brand-white);
-    --color-contrast-primary: var(--brand-primary-offset);
-    --color-contrast-primary-offset: var(--brand-primary);
-    --color-contrast-secondary: var(--brand-secondary-offset);
-    --color-contrast-secondary-offset: var(--brand-secondary);
-    --color-contrast-font-primary: var(--brand-white);
-    --color-contrast-bg: var(--brand-grey-4);
-  }
 
   @media (prefers-color-scheme: dark) {
     --color-primary: var(--brand-primary-offset);
