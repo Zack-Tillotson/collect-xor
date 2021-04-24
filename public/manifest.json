@@ -3,8 +3,8 @@
   "name": "Board Game Shelf",
   "icons": [
     {
-      "src": "icon.png",
-      "type": "image/png",
+      "src": "icon.webp",
+      "type": "image/webp",
       "sizes": "400x400"
     }
   ],

@@ -4,7 +4,7 @@ import cn from 'classnames'
 import {Link} from 'react-router-dom'
 
 import './component.scss'
-import logoTitle from 'assets/headline-250x50.png'
+import logoTitle from 'assets/bgshelf/headline-250x50.webp'
 
 function Component(props) {
   return (

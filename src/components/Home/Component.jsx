@@ -6,7 +6,7 @@ import cn from 'classnames'
 import Page from 'components/Page'
 
 import './component.scss'
-import hero from 'assets/logo-400x400.png'
+import hero from 'assets/bgshelf/logo-400x400.webp'
 
 function Component(props) {
   return (
