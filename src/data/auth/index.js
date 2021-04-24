@@ -2,10 +2,10 @@ import firebase from 'firebase'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 
-import '../index' // ensure it's loaded first
+import '../index' // ensure core Firebase module is loaded first
 
 const uiConfig = {
-  signInSuccessUrl: `${window.location.host}/app/`,
+  signInSuccessUrl: window.location.href,
   signInOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
@@ -16,7 +16,6 @@ const uiConfig = {
 
 // Initialize the FirebaseUI Widget using Firebase.
 const ui = new firebaseui.auth.AuthUI(firebase.auth());
+export const init = targetId => ui.start(targetId, uiConfig);
 
-const init = targetId => ui.start(targetId, uiConfig);
-
-export default init
+export const logout = () => firebase.auth().signOut()

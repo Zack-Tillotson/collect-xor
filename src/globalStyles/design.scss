@@ -28,12 +28,12 @@ h3 {
 
 h4 {
   font-weight: bold;
-  color: var(--color-primary);
+  color: var(--color-font-primary);
 }
 
 a:link, a:visited {
   text-decoration: none;
-  color: var(--color-secondary);
+  color: var(--color-font-secondary);
 }
 
 a:hover {
@@ -42,12 +42,12 @@ a:hover {
 
 p {
   margin: .5rem 0;
-  color: var(--color-txt-secondary);
+  color: var(--color-font-primary);
 }
 
 strong {
   font-weight: bold;
-  color: var(--brand-primary);
+  color: var(--color-primary);
 }
 
 figure {

@@ -11,7 +11,7 @@
   grid-template-columns: 100%;
   align-items: center;
   justify-items: center;
-  min-height: 100vh; 
+  min-height: 70vh; 
 }
 
 /* page template styles */
@@ -22,15 +22,6 @@
 
   .page__content {
     padding: var(--pad);
-  }
-
-  .page__head {
-
-    @media(orientation: landscape) {
-      img {
-        height: 20px;
-      }
-    }
   }
 
   .page__foot {

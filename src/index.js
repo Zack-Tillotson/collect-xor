@@ -6,7 +6,7 @@ import './index.scss';
 import store from './store';
 import App from './App';
 import sw from './swController'
-import firebase from './firebase'
+import './data'
 
 ReactDOM.render(<App store={store} />, document.getElementById('root'));
 sw.register();

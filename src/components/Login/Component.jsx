@@ -2,13 +2,13 @@ import React, {useEffect} from 'react';
 import cn from 'classnames'
 import './component.scss'
 
-import auth from '../../firebase/auth';
+import {init} from 'data/auth';
 
 const divId = 'login-form'
 
 function Component(props) {
   useEffect(() => {
-    auth(`#${divId}`)
+    init(`#${divId}`)
   }, [])
 
   return (
