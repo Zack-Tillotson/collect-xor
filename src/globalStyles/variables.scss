@@ -1,0 +1,77 @@
+/********************************************
+ * App Variables ****************************
+ ********************************************/
+:root {
+
+  /* brand colors */
+  --brand-primary: #0086CD;
+  --brand-primary-offset: #86d1f9;
+  --brand-secondary: #2DB34A;
+  --brand-secondary-offset: #2ef159;
+  --brand-white: #ffffff;
+  --brand-grey-1: #ddd;
+  --brand-grey-2: #999;
+  --brand-grey-3: #666;
+  --brand-grey-4: #42444E;
+  --brand-black: #333;
+
+  /* color scheme */
+
+  --color-primary: var(--brand-primary);
+  --color-primary-offset: var(--brand-primary-offset);
+  --color-secondary: var(--brand-secondary);
+  --color-secondary-offset: var(--brand-secondary-offset);
+  --color-font-primary: var(--brand-grey-4);
+  --color-font-secondary: var(--brand-secondary);
+  --color-bg: var(--brand-white);
+  --color-contrast-primary: var(--brand-primary-offset);
+  --color-contrast-primary-offset: var(--brand-primary);
+  --color-contrast-secondary: var(--brand-secondary-offset);
+  --color-contrast-secondary-offset: var(--brand-secondary);
+  --color-contrast-font-primary: var(--brand-white);
+  --color-contrast-bg: var(--brand-grey-4);
+
+  @media (prefers-color-scheme: light) {
+    --color-primary: var(--brand-primary);
+    --color-primary-offset: var(--brand-primary-offset);
+    --color-secondary: var(--brand-secondary);
+    --color-secondary-offset: var(--brand-secondary-offset);
+    --color-font-primary: var(--brand-grey-4);
+    --color-bg: var(--brand-white);
+    --color-contrast-primary: var(--brand-primary-offset);
+    --color-contrast-primary-offset: var(--brand-primary);
+    --color-contrast-secondary: var(--brand-secondary-offset);
+    --color-contrast-secondary-offset: var(--brand-secondary);
+    --color-contrast-font-primary: var(--brand-white);
+    --color-contrast-bg: var(--brand-grey-4);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    --color-primary: var(--brand-primary-offset);
+    --color-primary-offset: var(--brand-primary);
+    --color-secondary: var(--brand-secondary-offset);
+    --color-secondary-offset: var(--brand-secondary);
+    --color-font-primary: var(--brand-white);
+    --color-bg: var(--brand-grey-4);
+    --color-contrast-primary: var(--brand-primary);
+    --color-contrast-primary-offset: var(--brand-primary-offset);
+    --color-contrast-secondary: var(--brand-secondary);
+    --color-contrast-secondary-offset: var(--brand-secondary-offset);
+    --color-contrast-font-primary: var(--brand-grey-4);
+    --color-contrast-bg: var(--brand-white);
+  }
+  
+  /* layout */
+  --pad: 8px;
+  --pad-quart: calc(var(--pad) / 4);
+  --pad-half: calc(var(--pad) / 2);
+  --pad2: calc(var(--pad) * 2);
+  --pad3: calc(var(--pad) * 3);
+  --pad4: calc(var(--pad) * 4);
+  --pad5: calc(var(--pad) * 5);
+
+  /* fonts */
+  --font-title: 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --font-content: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+
+}

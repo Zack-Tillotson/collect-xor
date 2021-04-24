@@ -1,6 +1,6 @@
 {
-  "short_name": "Who Slow",
-  "name": "Who Slow by Zack Tillotson",
+  "short_name": "BG Shelf",
+  "name": "Board Game Shelf",
   "icons": [
     {
       "src": "icon.png",
@@ -10,6 +10,6 @@
   ],
   "start_url": "/app/",
   "display": "standalone",
-  "theme_color": "#1D549B",
-  "background_color": "#61C5A7"
+  "theme_color": "#0086CD",
+  "background_color": "#fff"
 }
