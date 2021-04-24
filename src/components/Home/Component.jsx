@@ -12,6 +12,7 @@ function Component(props) {
   return (
     <Page isHeadShown={false}>
       <div className="home">
+        <h1 className="subtitle">Board Game Shelf</h1>
         <div className="home__hero">
           <img src={hero} />
         </div>
@@ -19,7 +20,6 @@ function Component(props) {
           <Link to="/app/" className="--button-like --primary --wide">Open App</Link>
         </div>
         <div className="home__explanation">
-          <h1 className="subtitle">Board Game Shelf</h1>
           <p>Keep track of your board games, it's fun and free!</p>
         </div>
       </div>

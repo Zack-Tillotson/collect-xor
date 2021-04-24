@@ -1,7 +1,20 @@
 .page-head {
-  background: var(--bg-contrast);
+  background: var(--color-contrast-bg);
 
   .page-head__content {
     padding: var(--pad);
+  }
+
+  .page-head__logo-title-dark {
+    display: none;
+  }
+  
+  @media(prefer-color-scheme: light) {
+    .page-head__logo-title-light {
+      display: none;
+    }
+    .page-head__logo-title-dark {
+      display: auto;
+    } 
   }
 }

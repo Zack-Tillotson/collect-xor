@@ -12,7 +12,7 @@ import logo from 'assets/bgshelf/logo-400x400.webp'
 function Component(props) {
   return (
     <Page className="app-home">
-      <h1>BG Shelf</h1>
+      <h1>Collection</h1>
     </Page>
   );
 }
