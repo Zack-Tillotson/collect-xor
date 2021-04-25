@@ -5,6 +5,8 @@ import {useDispatch} from 'react-redux'
 import cn from 'classnames'
 
 import Page from 'components/Page'
+import ItemList from 'components/ItemList'
+import AddItem from 'components/AddItem'
 
 import useAuth from 'data/auth/useAuth'
 
@@ -24,7 +26,11 @@ function Component(props) {
   
   return (
     <Page className="app-home">
-      <h1>Collection</h1>
+      <div className="app-home__header">
+        <h1 className="app-home__title">Your game list</h1>
+        <AddItem className="app-home__add-item" />
+      </div>
+      <ItemList />
     </Page>
   );
 }

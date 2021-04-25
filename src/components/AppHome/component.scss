@@ -1,5 +1,12 @@
 .app-home {
-
   text-align: left;
 
+  .app-home__header {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  .app-home__title {
+    flex: 1;
+  }
 }
