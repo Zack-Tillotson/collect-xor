@@ -1,0 +1,17 @@
+.skeleton {
+  display: flex;
+  flex-flow: column nowrap;
+
+  .skeleton__hero {
+    height: 25vh;
+    background: #efefef;
+    border-radius: 5px;
+  }
+
+  .skeleton__block {
+    height: 10vh;
+    background: #efefef;
+    border-radius: 5px;
+    margin-top: var(--pad);
+  }
+}

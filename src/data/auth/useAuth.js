@@ -7,7 +7,7 @@ import Page from 'components/Page'
 
 import {logout} from './index'
 
-import titleLogo from 'assets/bgshelf/splash-250x250.webp'
+import './styles.scss'
 
 function renderLoginPage() {
   return (
@@ -20,8 +20,10 @@ function renderLoginPage() {
 
 function renderLoadingPage() {
   return (
-    <Page className="loading-page page__loader">
-      <img src={titleLogo} alt="Loading, please wait" />
+    <Page className="loading-page skeleton">
+      <div className="skeleton__hero">&nbsp;</div>
+      <div className="skeleton__block">&nbsp;</div>
+      <div className="skeleton__block">&nbsp;</div>
     </Page>
   )
 }
