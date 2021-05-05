@@ -8,7 +8,10 @@
  * be identifiable using the 'meta' attribute. 
  */
 
- import firebase from 'firebase'
+import firebase from 'firebase'
+
+import selector from './state/selector'
+import actions from './state/actions'
 
 // external live dependencies
 const context = {
@@ -36,26 +39,47 @@ function initialize(store, collectionType) {
 
   getStore().dispatch(actions.initialize(collectionType))
   
-  getDb().collection('itemshapes').doc(collectionType).get().then(doc => {
-    if(!doc.exists) {
-      throw new Error('itemshapes document does not exist - ' + collectionType)
-    }
-    getStore().dispatch(actions.dataLoaded('itemshapes', collectionType, doc.data()))
+  const collectionShapePromise = new Promise(resolve => {
+    getDb().collection('itemshapes').doc(collectionType).get().then(doc => {
+      if(!doc.exists) {
+        throw new Error('itemshapes document does not exist - ' + collectionType)
+      }
+      const data = doc.data()
+      getStore().dispatch(actions.dataLoaded({id: 'itemshapes', data}))
+      resolve(data)
+    })
   })
-  getDb().collection('itemshapes').doc(collectionType + 'ownership').get().then(doc => {
-    if(!doc.exists) {
-      throw new Error('itemshapes document does not exist - ' + collectionType + 'ownership')
-    }
-    getStore().dispatch(actions.dataLoaded('itemshapes', collectionType + 'ownership', doc.data()))
+  const collectionOwnershipShapePromise = new Promise(resolve => {
+    getDb().collection('itemshapes').doc(collectionType + 'ownership').get().then(doc => {
+      if(!doc.exists) {
+        throw new Error('itemshapes document does not exist - ' + collectionType + 'ownership')
+      }
+      const data = doc.data()
+      getStore().dispatch(actions.dataLoaded({id: 'itemownershipshapes', data}))
+      resolve(data)
+    })
   })
 
   // TODO load collection
+  return Promise
+    .all([collectionShapePromise, collectionOwnershipShapePromise])
+    .then(([shape, ownershipShape]) => ({shape, ownershipShape}))
+}
+
+function get() {
+  return selector(getStore().getState())
+}
+
+function upsertItem(item) {
+  console.log('TODO')
+}
+
+function deleteItem(item) {
+  console.log('TODO')
 }
  
 export default {
-  getMeta,
-  getCollection,
-  getCollectionShape,
+  get,
 
   initialize,
 

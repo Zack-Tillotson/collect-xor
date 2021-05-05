@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux';
 
-import session from './reducers/session'
-import sessionConfig from './reducers/sessionConfig'
+import collection from '../data/collection/state/reducer'
 
 const rootReducer = combineReducers({
-  sessionConfig,
-  session,
+  data: combineReducers({
+    collection,
+  }),
 });
 
 export default rootReducer;

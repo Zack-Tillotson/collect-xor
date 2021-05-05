@@ -1,26 +1,17 @@
-import React from 'react'
 /*
  * This module is the main interface to interact with database
- * collections within React components. It will allow consumers 
- * to understand the current collection shape and make CRUD 
- * operations on the collection items.
- * 
- * Data is accessed synchronously but in-progress operations will
- * be identifiable using the 'meta' attribute. 
+ * collections within React components. It will expose the data
+ * and the interfaces for triggering CRUD actions.
  */
- 
+
+import React, {useState} from 'react'
+
+import collection from './index'
+
 export default () => {
-  const [isInitialized, updateIsInitialized] = useState(false) // TODO from db
-  const 
-  return {
-    meta: {
-      isInitialized,
-      isInProgress,
-    },
-    data,
-    shape: { // Item attribute information
-      item,
-      ownership,
-    },
-  }
+  const [data, updateData] = useState(collection.get())
+
+  // TODO monitor updates
+  
+  return data
 }

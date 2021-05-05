@@ -14,6 +14,7 @@ import AttributeList from './components/AttributeList'
 function Component(props) {
 
   const auth = useAuth()
+  const collection = useCollection()
 
   if(!auth.isInitialized) {
     return auth.renderLoadingPage()
@@ -22,8 +23,6 @@ function Component(props) {
   if(!auth.isLoggedIn) {
     return auth.renderLoginPage()
   }
-
-  const collection = useCollection()
 
   return (
      <Page className="app-add-item">

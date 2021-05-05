@@ -15,7 +15,9 @@ const uiConfig = {
 };
 
 // Initialize the FirebaseUI Widget using Firebase.
-const ui = new firebaseui.auth.AuthUI(firebase.auth());
-export const init = targetId => ui.start(targetId, uiConfig);
+export const init = targetId => {
+  const ui = new firebaseui.auth.AuthUI(firebase.auth())
+  ui.start(targetId, uiConfig)
+}
 
 export const logout = () => firebase.auth().signOut()
