@@ -44,9 +44,19 @@ function initialize(store, collectionType) {
       if(!doc.exists) {
         throw new Error('itemshapes document does not exist - ' + collectionType)
       }
-      const data = doc.data()
-      getStore().dispatch(actions.dataLoaded({id: 'itemshapes', data}))
-      resolve(data)
+
+      // each attribute will be a reference to an 'attribute' collection doc, get those values
+      const shape = doc.data()
+      const attrPromises = Object.keys(shape).reduce((promises, key) => {
+        return {...promises, [key]: shape[key].get()}
+      }, {})
+      Promise.all(Object.values(attrPromises)).then(promiseValues => {
+        const attributes = Object.keys(attrPromises).reduce((values, key, index) => {
+          return ({...values, [key]: promiseValues[index].data()})
+      }, {})
+        getStore().dispatch(actions.dataLoaded({id: 'itemshapes', attributes}))
+        resolve(attributes)
+      })
     })
   })
   const collectionOwnershipShapePromise = new Promise(resolve => {
@@ -54,9 +64,18 @@ function initialize(store, collectionType) {
       if(!doc.exists) {
         throw new Error('itemshapes document does not exist - ' + collectionType + 'ownership')
       }
-      const data = doc.data()
-      getStore().dispatch(actions.dataLoaded({id: 'itemownershipshapes', data}))
-      resolve(data)
+      // each attribute will be a reference to an 'attribute' collection doc, get those values
+      const shape = doc.data()
+      const attrPromises = Object.keys(shape).reduce((promises, key) => {
+        return {...promises, [key]: shape[key].get()}
+      }, {})
+      Promise.all(Object.values(attrPromises)).then(promiseValues => {
+        const attributes = Object.keys(attrPromises).reduce((values, key, index) => {
+          return ({...values, [key]: promiseValues[index].data()})
+      }, {})
+        getStore().dispatch(actions.dataLoaded({id: 'itemownershipshapes', attributes}))
+        resolve(attributes)
+      })
     })
   })
 
@@ -70,6 +89,10 @@ function get() {
   return selector(getStore().getState())
 }
 
+function listen(callback) {
+  getStore().subscribe(callback)
+}
+
 function upsertItem(item) {
   console.log('TODO')
 }
@@ -80,6 +103,7 @@ function deleteItem(item) {
  
 export default {
   get,
+  listen,
 
   initialize,
 

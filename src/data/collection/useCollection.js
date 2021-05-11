@@ -4,14 +4,18 @@
  * and the interfaces for triggering CRUD actions.
  */
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import collection from './index'
 
 export default () => {
   const [data, updateData] = useState(collection.get())
 
-  // TODO monitor updates
+  useEffect(() => {
+    return collection.listen(() => {
+      updateData(collection.get())
+    })
+  }, [collection])
   
   return data
 }

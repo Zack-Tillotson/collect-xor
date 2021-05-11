@@ -24,6 +24,10 @@ function Component(props) {
     return auth.renderLoginPage()
   }
 
+  if(!collection.meta.isInitialized) {
+    return auth.renderLoadingPage() 
+  }
+
   return (
      <Page className="app-add-item">
       <h1>Add an item to your collection</h1>

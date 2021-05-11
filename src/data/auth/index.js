@@ -14,10 +14,17 @@ const uiConfig = {
   privacyPolicyUrl: () => window.alert('The owner of this website is the sole owner of data collected by the site, it is not used for commercial purposes. Use at your own risk.')
 };
 
+let ui = null
+function getUi() {
+  if(!ui) {
+    ui = new firebaseui.auth.AuthUI(firebase.auth())
+  }
+  return ui
+}
+
 // Initialize the FirebaseUI Widget using Firebase.
 export const init = targetId => {
-  const ui = new firebaseui.auth.AuthUI(firebase.auth())
-  ui.start(targetId, uiConfig)
+  getUi().start(targetId, uiConfig)
 }
 
 export const logout = () => firebase.auth().signOut()
