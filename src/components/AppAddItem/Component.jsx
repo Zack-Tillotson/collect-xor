@@ -28,13 +28,21 @@ function Component(props) {
     return auth.renderLoadingPage() 
   }
 
+  let requiredAttrs = {}
+  let otherAttrs = {}
+  Object.keys(collection.shape.item).forEach(key => {
+    const attr = collection.shape.item[key]
+    if(attr.required) {
+      requiredAttrs[key] = attr
+    } else {
+      otherAttrs[key] = attr
+    }
+  })
+
   return (
      <Page className="app-add-item">
-      <h1>Add an item to your collection</h1>
-      <div className="app-add-item__primary">
-        <h2>Required attributes</h2>
-        <PrimaryAttributes attributes={collection.item} />
-      </div>
+      <h1>Add an item</h1>
+      <PrimaryAttributes attributes={requiredAttrs} className="app-add-item__primary" />
       <div className="app-add-item__ownership">
         <h2>Ownership attributes</h2>
         <Ownership attributes={collection.ownership} />

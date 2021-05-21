@@ -1,32 +1,12 @@
 .add-item-button {
   --button-square-size: 75px;
 
-  @media(max-width: 800px) {
-    position: fixed;
-    right: var(--pad2);
-    bottom: var(--pad2);
-
-    border-radius: 9999px;
-    margin: 0;
-    padding: 0;
-  }
-
   .add-item-button__icon {
-    font-size: 61px;
-    line-height: 61px;
-    font-weight: bold;
-    padding: var(--pad2);
-
-    @media(min-width: 800px) {
       display: none;
-    }
   }
 
   .add-item-button__label {
-    display: none;
-
     @media(min-width: 800px) {
-      display: block;
     }
   }
 }
