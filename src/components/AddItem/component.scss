@@ -1,12 +1,11 @@
-.add-item-button {
-  --button-square-size: 75px;
+.add-item {
+  display: flex;
+  flex-flow: row wrap;
 
-  .add-item-button__icon {
-      display: none;
-  }
+  text-align: center;
 
-  .add-item-button__label {
-    @media(min-width: 800px) {
-    }
+  .add-item-button {
+    margin: var(--pad);
+    
   }
 }

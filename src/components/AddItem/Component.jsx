@@ -6,12 +6,18 @@ import './component.scss'
 
 function Component(props) {
   return (
-    <Link 
-      to="/app/add/" 
-      className="add-item-button --button-like --primary">
-        <div className="add-item-button__icon">＋</div>
-        <div className="add-item-button__label">Add item</div>
-    </Link>
+    <div className={cn('add-item', props.className)}>
+      <Link 
+        to="/app/add/" 
+        className="add-item-button --button-like --primary">
+          Add item
+      </Link>
+      <Link 
+        to="/app/scan/" 
+        className="add-item-button --button-like --primary">
+          Scan item
+      </Link>
+    </div>
   )
 }
 
