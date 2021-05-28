@@ -9,12 +9,14 @@ import ItemList from 'components/ItemList'
 import AddItem from 'components/AddItem'
 
 import useAuth from 'data/auth/useAuth'
+import useCollection from 'data/collection/useCollection'
 
 import './component.scss'
 
 function Component(props) {
 
   const auth = useAuth()
+  const collection = useCollection()
 
   if(!auth.isInitialized) {
     return auth.renderLoadingPage()
@@ -30,7 +32,7 @@ function Component(props) {
         <h1 className="app-home__title">Your game list</h1>
         <AddItem className="app-home__add-item" />
       </div>
-      <ItemList />
+      <ItemList items={collection.items} />
     </Page>
   );
 }

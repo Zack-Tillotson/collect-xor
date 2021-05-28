@@ -14,9 +14,11 @@ import selector from './state/selector'
 import actions from './state/actions'
 
 // external live dependencies
+let userPromiseResolve = null
 const context = {
   store: null,
   db: null,
+  userPromise: new Promise(resolve => userPromiseResolve = resolve),
 }
 
 function getStore() {
@@ -33,9 +35,14 @@ function getDb() {
   return context.db;
 }
 
+function awaitUser() {
+  return context.userPromise;
+}
+
 function initialize(store, collectionType) {
   context.store = store;
   context.db = firebase.firestore();
+  firebase.auth().onAuthStateChanged(userPromiseResolve)
 
   getStore().dispatch(actions.initialize(collectionType))
   
@@ -78,11 +85,27 @@ function initialize(store, collectionType) {
       })
     })
   })
+  const collectionPromise = new Promise(resolve => {
+    awaitUser()
+      .then(user => {
+        getDb()
+          .collection(`users/${user.uid}/items`)
+          .get()
+          .then(resp => resp.docs.map(doc => {
+            const id = Promise.resolve(doc.id)
+            const data = doc.data()
+            return {id, ...data}
+          }))
+          .then(docs => {
+            getStore().dispatch(actions.dataLoaded({id: 'items', docs}))
+            resolve(docs)
+        })
+      })
+  })
 
-  // TODO load collection
   return Promise
-    .all([collectionShapePromise, collectionOwnershipShapePromise])
-    .then(([shape, ownershipShape]) => ({shape, ownershipShape}))
+    .all([collectionShapePromise, collectionOwnershipShapePromise, collectionPromise])
+    .then(([shape, ownershipShape, items]) => ({shape, ownershipShape, items}))
 }
 
 function get() {
@@ -93,8 +116,13 @@ function listen(callback) {
   getStore().subscribe(callback)
 }
 
-function upsertItem(item) {
-  console.log('TODO')
+function upsertItem(item, {id, user}) {
+  const collection = getDb().collection(`users/${user.uid}/items`)
+  if(id) {
+    collection.doc(id).set(item)
+  } else {
+    const id = collection.add(item)
+  }
 }
 
 function deleteItem(item) {

@@ -15,7 +15,7 @@ const REQUIRED_DETECTION_COUNT = 8
 
 let barcodes = {}
 
-function useBarcodeScan(onScanEnd) {
+function useBarcodeScan(onScanEnd, useBarcodeLookup) {
 
   const [isScanOpen, updateIsScanOpen] = useState(false)
   const [status, updateStatus] = useState(STATUS.default)
@@ -28,9 +28,9 @@ function useBarcodeScan(onScanEnd) {
     updateIsScanOpen(false)
     updateStatus(STATUS.complete)
     
-    if(!barcode) {
+    if(!barcode || !useBarcodeLookup) {
       onScanEnd({barcode})
-      return Promise.reject({barcode})
+      return Promise.resolve({barcode})
     }
 
     return fetch(`https://api.barcodespider.com/v1/lookup?token=b26e52aca779f1103306&upc=${barcode}`)

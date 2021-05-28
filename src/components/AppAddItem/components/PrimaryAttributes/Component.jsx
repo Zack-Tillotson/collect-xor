@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux'
 import cn from 'classnames'
-import './component.scss'
 
+import actions from 'state/actions'
+
+import './component.scss'
 import useBarcodeScan from './useBarcodeScan'
 
 // XXX this will be hardcoded for BGShelf for now. Generaliztion to come
+
+const formSelector = state => state.addNewItemForm
 
 function Component(props) {
   const {
@@ -19,30 +24,27 @@ function Component(props) {
     publisher,
   } = attributes
 
-  const [values, updateValues] = useState({
-    barcode: '0029877031313',
-    image: 'https://images.barcodespider.com/upcimage/0029877031313.jpg',
-    name: 'Rivals for CATAN',
-    publisher: 'Catan Studio',
-  })
+
+  const {item: values, useBarcodeLookup} = useSelector(formSelector)
+  const dispatch = useDispatch()
 
   const [isImageInput, updateIsImageInput] = useState(!values.image)
 
   const handleScanEnd = data => {
     if(!data || !data.barcode) return
-    updateValues({...values, ...data})
+    dispatch(actions.formValuesUpdated(data))
   }
 
   const {
     isScanOpen,
     scanRender,
     startScan,
-  } = useBarcodeScan(handleScanEnd)
+  } = useBarcodeScan(handleScanEnd, useBarcodeLookup)
 
-  const updateValue = attr => event => updateValues({...values, [attr]: event.target.value})
+  const updateValue = attr => event => dispatch(actions.formValuesUpdated({[attr]: event.target.value}))
   const textInput = (attr, label = attr) => ([
     <label htmlFor={`${attr}-input`} key="1">{label}</label>,
-    <input id={`${attr}-input`} type="text" value={values[attr]} onChange={updateValue([attr])} key="2" />
+    <input id={`${attr}-input`} type="text" value={values[attr]} onChange={updateValue(attr)} key="2" />
   ])
 
   const handleScanClick = event => startScan()

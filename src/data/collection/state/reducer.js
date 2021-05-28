@@ -5,7 +5,7 @@ const DEFAULT_STATE = {
   meta: {
     isInitialized: false,
   },
-  data: null,
+  items: null,
   shape: { // Item attribute information
     item: null,
     ownership: null,
@@ -25,7 +25,7 @@ function collection(state = DEFAULT_STATE, action) {
             ...state, 
             shape: {...state.shape, item: action.payload.attributes},
             meta: {
-              isInitialized: !!state.shape.ownership && !!action.payload.attributes, // TODO wait for data
+              isInitialized: !!state.shape.ownership && !!action.payload.attributes && !!state.items,
             },
           }
         }
@@ -34,7 +34,16 @@ function collection(state = DEFAULT_STATE, action) {
             ...state, 
             shape: {...state.shape, ownership: action.payload.attributes},
             meta: {
-              isInitialized: !!state.shape.item && !!action.payload.attributes, // TODO wait for data
+              isInitialized: !!state.shape.item && !!action.payload.attributes && !!state.items,
+            },
+          }
+        }
+        case 'items': {
+          return {
+            ...state, 
+            items: action.payload.docs,
+            meta: {
+              isInitialized: !!state.shape.item && !!action.payload.attributes,
             },
           }
         }
