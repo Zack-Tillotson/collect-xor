@@ -12,11 +12,6 @@ function Component(props) {
         className="add-item-button --button-like --primary">
           Add item
       </Link>
-      <Link 
-        to="/app/scan/" 
-        className="add-item-button --button-like --primary">
-          Scan item
-      </Link>
     </div>
   )
 }
