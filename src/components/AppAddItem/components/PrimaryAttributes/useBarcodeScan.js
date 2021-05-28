@@ -11,17 +11,22 @@ const STATUS = {
   complete: 'Scan complete, found barcode'
 }
 
+const REQUIRED_DETECTION_COUNT = 8
+
 let barcodes = {}
 
 function useBarcodeScan(onScanEnd) {
 
   const [isScanOpen, updateIsScanOpen] = useState(false)
   const [status, updateStatus] = useState(STATUS.default)
+  const [highestCount, updateHighestCount] = useState(0)
 
   const handleScanComplete = barcode => {
+    Quagga.stop()
+    Quagga.offDetected(handleBarcodeFound)
+
     updateIsScanOpen(false)
     updateStatus(STATUS.complete)
-    Quagga.stop()
     
     if(!barcode) {
       onScanEnd({barcode})
@@ -51,7 +56,8 @@ function useBarcodeScan(onScanEnd) {
     barcodes = {...barcodes, [code]: currentCount + 1}
 
     const highestCount = Object.values(barcodes).sort((a, b) => b - a)[0]
-    if(highestCount > 8) {
+    updateHighestCount(highestCount)
+    if(highestCount > REQUIRED_DETECTION_COUNT) {
       const highestCode = Object.keys(barcodes).find(code => barcodes[code] === highestCount)
       handleScanComplete(highestCode)
     }
@@ -83,6 +89,8 @@ function useBarcodeScan(onScanEnd) {
         ]
       },
       multiple: false,
+      halfSample: true,
+      patchSize: 'medium',
     }, err => {
         if (err) {
             updateStatus(STATUS.error)
@@ -101,7 +109,7 @@ function useBarcodeScan(onScanEnd) {
       {isScanOpen && (<h2>Scan the barcode</h2>)}
       {isScanOpen && (<p>Hold the barcode up to the camera - make sure you've allowed this app to use your camera!</p>)}
       <div id="image-viewport" />
-      {isScanOpen && (<div className="barcode-scan__feedback">{status}</div>)}
+      {isScanOpen && (<div className="barcode-scan__feedback">{status} {status === STATUS.scanning && `${Math.floor(highestCount / REQUIRED_DETECTION_COUNT * 100)}%`}</div>)}
       {isScanOpen && (<button onClick={handleCancelClick}>Cancel</button>)}
     </div>
   )
