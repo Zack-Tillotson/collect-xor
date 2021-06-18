@@ -20,7 +20,7 @@ function App({store}) {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Route path="/" component={Hack} />
+        <Route path="/" component={Hack} />{/*A hack way to access the Browser Route in Saga files*/}
         <Switch>
           <Route path="/app/add/" exact component={AppAddItem} />
           <Route path="/app/" exact component={AppHome} />

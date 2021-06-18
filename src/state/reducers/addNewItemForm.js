@@ -3,10 +3,10 @@ import types from '../types'
 const DEFAULT_STATE = {
   useBarcodeLookup: true, // If true will make API calls whenever UPC is scanned
   item: {
-    barcode: '0816167010505', // XXX remove default values when dev is complete
-    image: 'https://images.barcodespider.com/upcimage/0816167010505.jpg',
-    name: 'Boogy Wipes',
-    publisher: 'Boogy Wipes',
+    barcode: '',
+    image: '',
+    name: '',
+    publisher: '',
   },
   ownership: {}
 }
