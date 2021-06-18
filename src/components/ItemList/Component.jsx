@@ -9,9 +9,9 @@ function Component(props) {
 
   return (
     <div className="item-list">
-      {items.map(item => {
+      {items.map((item, index) => {
         return (
-          <div key={item.id} className="item-list__item">
+          <div key={index} className="item-list__item">
             {item.item.name}
           </div>
         )

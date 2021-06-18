@@ -11,10 +11,16 @@ import AppHome from 'components/AppHome';
 import AppAddItem from 'components/AppAddItem';
 import FileNotFound from 'components/FileNotFound';
 
+function Hack(props) {
+  if(props && props.history) window.hackHistory = props.history;
+  return null
+}
+
 function App({store}) {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        <Route path="/" component={Hack} />
         <Switch>
           <Route path="/app/add/" exact component={AppAddItem} />
           <Route path="/app/" exact component={AppHome} />

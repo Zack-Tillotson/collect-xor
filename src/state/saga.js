@@ -7,7 +7,7 @@ function* handleFormSubmitted(action) {
   const {item, ownership} = yield(select(state => state.addNewItemForm))
   const result = yield call(collection.upsertItem, {item, ownership}, {user: action.payload})
   
-  window.history.go('/app/')
+  window.hackHistory.push('/app/')
 }
 
 function* monitorForm() {
