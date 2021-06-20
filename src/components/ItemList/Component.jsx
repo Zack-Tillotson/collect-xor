@@ -33,11 +33,11 @@ function Component(props) {
                 <div className="item-card__icon-label">Owned</div>
               </div>
               <div className={cn('item-card__icon', {['item-card__icon--active']: item.ownership.favorite})}>
-                <div className={cn('item-card__icon-img', {['item-card__icon-img--active']: item.ownership.favorite})}>♥</div>
+                <div className={'item-card__icon-img'}>♥</div>
                 <div className="item-card__icon-label">Favorite</div>
               </div>
-              <div className={cn('item-card__icon', {['item-card__icon--active']: item.ownership.played})}>
-                <div className={cn('item-card__icon-img', {['item-card__icon-img--active']: item.ownership.played})}>♟</div>
+              <div className={cn('item-card__icon', {['item-card__icon--active']: item.ownership.playedIt})}>
+                <div className={'item-card__icon-img'}>♟</div>
                 <div className="item-card__icon-label">Played</div>
               </div>
             </div>
