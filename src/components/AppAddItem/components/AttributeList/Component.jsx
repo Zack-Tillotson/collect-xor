@@ -19,16 +19,16 @@ function Component(props) {
 
   const updateValue = attr => event => dispatch(actions.formValuesUpdated({[attr]: event.target.value}))
   const textInput = (attr, label = attr) => ([
-    <label htmlFor={`${attr}-input`} key="1">{label}</label>,
-    <input id={`${attr}-input`} type="text" value={values[attr] || ''} onChange={updateValue(attr)} key="2" />
+    <label htmlFor={`${attr}-input`} key="1" className="attributes__label">{label}</label>,
+    <input id={`${attr}-input`} type="text" value={values[attr] || ''} onChange={updateValue(attr)} key="2" className="attributes__input" />
   ])
 
   return (
-    <div className={cn('primary-attributes', className)}>
+    <div className={cn('attribute-list', className)}>
       {Object.keys(attributes).map(key => {
         const attribute = attributes[key]
         return (
-          <div key={key} className={cn(`primary-attributes__${key}`)}>
+          <div key={key} className={cn('attributes__block', `attributes__${key}`)}>
             {textInput(key, attribute.copy)}
           </div>
         )

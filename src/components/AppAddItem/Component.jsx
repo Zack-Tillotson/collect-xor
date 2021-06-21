@@ -1,5 +1,5 @@
-import React from 'react';
-import {useDispatch} from 'react-redux'
+import React, { isValidElement } from 'react';
+import {useSelector, useDispatch} from 'react-redux'
 import cn from 'classnames'
 
 import './component.scss'
@@ -14,11 +14,14 @@ import PrimaryAttributes from './components/PrimaryAttributes'
 import Ownership from './components/Ownership'
 import AttributeList from './components/AttributeList'
 
+const formSelector = state => state.addNewItemForm
+
 function Component(props) {
 
   const auth = useAuth()
   const collection = useCollection()
   const dispatch = useDispatch()
+  const form = useSelector(formSelector)
 
   if(!auth.isInitialized) {
     return auth.renderLoadingPage()
@@ -43,7 +46,10 @@ function Component(props) {
     }
   })
 
+  const isValid = Object.keys(requiredAttrs).every(key => form.item[key])
+
   const handleFormSubmit = event => {
+    if(!isValid) return
     dispatch(actions.formSubmittted(auth.user))
   }
 
@@ -52,7 +58,7 @@ function Component(props) {
       <h1>Add an item</h1>
       <PrimaryAttributes attributes={requiredAttrs} className="app-add-item__primary" />
       <div className="app-add-item__ownership">
-        <h2>Ownership attributes</h2>
+        <h2>Ownership</h2>
         <Ownership attributes={collection.shape.ownership} />
       </div>
       <div className="app-add-item__attributes">
@@ -60,7 +66,7 @@ function Component(props) {
         <AttributeList attributes={otherAttrs} />
       </div>
       <div className="app-add-item__form-controls">
-        <button className="--button-like --primary" onClick={handleFormSubmit}>Submit</button>
+        <button className={cn('--button-like', '--primary', {['--disabled']: !isValid})} onClick={handleFormSubmit}>Submit</button>
       </div>
     </Page>
   )

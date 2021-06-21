@@ -19,7 +19,7 @@ function Component(props) {
 
   const updateValue = attr => event => dispatch(actions.formOwnershipUpdated({[attr]: event.target.checked}))
   const toggleInput = (attr, label = attr) => ([
-    <label htmlFor={`${attr}-input`} key="1">{label}</label>,
+    <label htmlFor={`${attr}-input`} key="1" className={cn('ownership-attribute__label', '--button-like', {['--primary']: !!values[attr]})}>{label}</label>,
     <input id={`${attr}-input`} type="checkbox" checked={!!values[attr]} onChange={updateValue(attr)} key="2" />
   ])
 
@@ -28,7 +28,7 @@ function Component(props) {
       {Object.keys(attributes).map(key => {
         const attribute = attributes[key]
         return (
-          <div key={key} className={cn(`ownership-attributes__${key}`)}>
+          <div key={key} className={cn(`ownership-attributes__${key}`, 'ownership-attributes__block')}>
             {toggleInput(key, attribute.copy)}
           </div>
         )

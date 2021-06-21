@@ -1,0 +1,16 @@
+.ownership-attributes {
+    display: flex;
+    flex-flow: row wrap;
+    font-size: .75rem;
+    justify-content: space-between;
+    text-align: center;
+
+    input {
+        display: none;
+    }
+
+    .ownership-attributes__block {
+        display: inline-block;
+        flex: 1;
+    }
+}
