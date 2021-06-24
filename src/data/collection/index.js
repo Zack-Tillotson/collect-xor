@@ -92,7 +92,7 @@ function initialize(store, collectionType) {
           .collection(`users/${user.uid}/items`)
           .get()
           .then(resp => resp.docs.map(doc => {
-            const id = Promise.resolve(doc.id)
+            const id = doc.id
             const data = doc.data()
             return {id, ...data}
           }))
@@ -113,7 +113,7 @@ function get() {
 }
 
 function listen(callback) {
-  getStore().subscribe(callback)
+  return getStore().subscribe(callback)
 }
 
 function upsertItem(item, {id, user}) {

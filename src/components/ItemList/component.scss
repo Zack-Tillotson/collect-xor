@@ -15,7 +15,11 @@
   display: inline-block;
   background: var(--color-contrast-bg);
   color: var(--color-contrast-font-primary);
-  box-shadow: 3px 3px 6px var(--color-contrast-bg);
+  box-shadow: 1px 1px 6px var(--color-contrast-bg);
+
+  &:hover {
+    box-shadow: 1px 1px 6px var(--brand-primary);
+  }
 
   .item-card__name {
     position: relative;

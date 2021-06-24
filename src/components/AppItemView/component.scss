@@ -1,0 +1,69 @@
+.item-view {
+  display: grid;
+  grid-template-areas:
+    "primary image"
+    "ownership ownership"
+    "secondary secondary";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto 1fr;
+
+  @media(min-width: 800px) {
+    grid-template-areas:
+      "image primary"
+      "image ownership"
+      "secondary secondary";
+  }
+
+  grid-gap: var(--pad);
+  min-height: 90vh;
+
+  .item-view__image {
+    grid-area: image;
+    background: rgba(0,0,0,0) center center no-repeat no-repeat;
+  }
+
+  .item-view__text {
+    grid-area: primary;
+  }
+
+  .item-view__ownership {
+    grid-area: ownership;
+  }
+
+  .item-view__secondary {
+    grid-area: secondary;
+  }
+
+  
+  .item-view__ownership {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    grid-gap: 1px;
+    padding: var(--pad-half);
+    
+    .item-view__icon {
+      padding:  var(--pad-quart);
+      color:  var(--brand-grey-2);
+      font-weight: bold;
+
+      &--active {
+        .item-view__icon-img {
+          color:  var(--color-secondary);
+        }
+        .item-view__icon-label {
+          color:  var(--color-font-primary);
+        }
+      }
+    }
+
+    .item-view__icon-img {
+      font-size:  1.5rem;
+      line-height:  1.5rem;
+    }
+
+    .item-view__icon-label {
+      font-size: .75rem;
+    }
+  }
+}

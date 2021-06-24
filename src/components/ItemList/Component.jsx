@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import cn from 'classnames'
 import './component.scss'
 
@@ -11,7 +12,7 @@ function Component(props) {
     <div className="item-list">
       {items.map((item, index) => {
         return (
-          <div key={index} className="item-list__item item-card">
+          <Link to={`/app/${item.id}/`} key={index} className="item-list__item item-card">
             <div className="item-card__image" style={{backgroundImage: `url(${item.item.image})`}} />
             <div className="item-card__text">
               <div className="item-card__label">Name:</div>
@@ -41,7 +42,7 @@ function Component(props) {
                 <div className="item-card__icon-label">Played</div>
               </div>
             </div>
-          </div>
+          </Link>
         )
       })}
     </div>

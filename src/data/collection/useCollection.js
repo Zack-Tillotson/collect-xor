@@ -8,13 +8,15 @@ import React, {useState, useEffect} from 'react'
 
 import collection from './index'
 
-export default () => {
+export default (itemId) => {
   const [data, updateData] = useState(collection.get())
 
   useEffect(() => {
-    return collection.listen(() => {
+    const unlisten = collection.listen(() => {
       updateData(collection.get())
     })
+
+    return () => unlisten()
   }, [collection])
   
   return data
