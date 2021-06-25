@@ -25,7 +25,7 @@ function App({store}) {
         <Route path="/" component={Hack} />{/*A hack way to access the Browser Route in Saga files*/}
         <Switch>
           <Route path="/app/add/" exact component={AppAddItem} />
-          <Route path="/app/:itemId/edit" exact component={AppEditItem} />
+          <Route path="/app/:itemId/edit/" exact component={AppEditItem} />
           <Route path="/app/:itemId/" exact component={AppItemView} />
           <Route path="/app/" exact component={AppHome} />
           <Route path="/" exact component={Home} />

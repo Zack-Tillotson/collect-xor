@@ -6,11 +6,12 @@ import collection from 'data/collection'
 import { getCurrentAuthData } from '../data/auth'
 
 function* handleFormSubmitted(action) {
-  const {item, ownership} = yield(select(state => state.addNewItemForm))
+  const {id, item, ownership} = yield(select(state => state.addNewItemForm))
   const {user} = yield(call(getCurrentAuthData))
-  const result = yield call(collection.upsertItem, {item, ownership}, {user})
+  const result = yield call(collection.upsertItem, {item, ownership}, {id, user})
   
-  window.hackHistory.push('/app/')
+  const loc = result.id ? `/app/${result.id}/` : '/app/';
+  window.hackHistory.push(loc)
 }
 
 function* handleItemUpdated(action) {
@@ -27,9 +28,20 @@ function* handleItemUpdated(action) {
   const result = yield call(collection.upsertItem, newItem, {id, user})
 }
 
+function* handleItemDelete(action) {
+  const id = action.payload
+  
+  const {user} = yield(call(getCurrentAuthData))
+  const result = yield call(collection.deleteItem, {id, user})
+  //TODO notify user of result
+  window.hackHistory.push('/app/')
+}
+
 function* monitorForm() {
   yield takeEvery(types.formSubmittted, handleFormSubmitted)
   yield takeEvery(types.itemUpdated, handleItemUpdated)
+  yield takeEvery(types.itemDelete, handleItemDelete)
+
 }
 
 export default [

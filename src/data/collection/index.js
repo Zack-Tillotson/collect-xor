@@ -118,16 +118,18 @@ function listen(callback) {
 
 function upsertItem(item, {id, user}) {
   const collection = getDb().collection(`users/${user.uid}/items`)
-  console.log('upsertItem', item, id)
+  
   if(id) {
     collection.doc(id).set(item)
+    return {id}
   } else {
-    const id = collection.add(item)
+    return collection.add(item)
   }
 }
 
-function deleteItem(item) {
-  console.log('TODO')
+function deleteItem({id, user}) {
+  const collection = getDb().collection(`users/${user.uid}/items`)
+  return collection.doc(id).delete()
 }
  
 export default {

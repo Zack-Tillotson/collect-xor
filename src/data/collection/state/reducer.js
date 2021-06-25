@@ -12,6 +12,15 @@ const DEFAULT_STATE = {
   },
 }
 
+function addIsInitialized(state) {
+  return {
+    ...state,
+    meta: {
+      isInitialized: !!state.shape.ownership && !!state.shape.item && !!state.items,
+    },
+  }
+}
+
 function collection(state = DEFAULT_STATE, action) {
   switch(action.type) {
     case types.initialize: {
@@ -21,31 +30,22 @@ function collection(state = DEFAULT_STATE, action) {
     case types.dataLoaded: {
       switch(action.payload.id) {
         case 'itemshapes': {
-          return {
+          return addIsInitialized({
             ...state, 
             shape: {...state.shape, item: action.payload.attributes},
-            meta: {
-              isInitialized: !!state.shape.ownership && !!action.payload.attributes && !!state.items,
-            },
-          }
+          })
         }
         case 'itemownershipshapes': {
-          return {
+          return addIsInitialized({
             ...state, 
             shape: {...state.shape, ownership: action.payload.attributes},
-            meta: {
-              isInitialized: !!state.shape.item && !!action.payload.attributes && !!state.items,
-            },
-          }
+          })
         }
         case 'items': {
-          return {
+          return addIsInitialized({
             ...state, 
             items: action.payload.docs,
-            meta: {
-              isInitialized: !!state.shape.item && !!action.payload.attributes,
-            },
-          }
+          })
         }
       }
     }

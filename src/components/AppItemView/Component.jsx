@@ -53,7 +53,7 @@ function Component(props) {
 
 
   const handleOwnershipClick = attr => event => dispatch(actions.itemUpdated({id: itemId, ownership: {[attr]: !item.ownership[attr]}}))
-  const handleDeleteClick = event => {console.log('delete', 'TODO')}
+  const handleDeleteClick = event => window.confirm('Confirm delete? This can not be undone.') && dispatch(actions.itemDelete(itemId))
   
   return (
     <Page className="app-item-view item-view">
@@ -106,7 +106,7 @@ function Component(props) {
         }, [])}
       </div>
       <div className="item-view__controls">
-        <Link className="--button-like --hollow" to="/app/:itemId/edit">
+        <Link className="--button-like --hollow" to={`/app/${itemId}/edit/`}>
           Edit
         </Link>
         <button className="--button-like --minimal" onClick={handleDeleteClick}>

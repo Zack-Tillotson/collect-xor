@@ -3,15 +3,17 @@
   grid-template-areas:
     "primary image"
     "ownership ownership"
-    "secondary secondary";
+    "secondary secondary"
+    "controls controls";
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto 1fr auto;
 
   @media(min-width: 800px) {
     grid-template-areas:
       "image primary"
       "image ownership"
-      "secondary secondary";
+      "secondary secondary"
+      "controls controls";
   }
 
   grid-gap: var(--pad);
@@ -33,6 +35,10 @@
 
   .item-view__secondary {
     grid-area: secondary;
+  }
+
+  .item-view__controls {
+    grid-area: controls;
   }
 
   .item-view__label {
@@ -76,5 +82,9 @@
       font-size: .75rem;
       font-weight: bold;
     }
+  }
+
+  .item-view__controls {
+    text-align: right;
   }
 }
