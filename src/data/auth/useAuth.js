@@ -5,7 +5,7 @@ import firebase from 'firebase'
 import Login from 'components/Login'
 import Page from 'components/Page'
 
-import {logout} from './index'
+import {subscribe, getCurrentAuthData, logout} from './index'
 
 import './styles.scss'
 
@@ -30,23 +30,14 @@ function renderLoadingPage() {
 
 function useAuth() {
 
-  const [isInitialized, updateIsInitialized] = useState(false)
-  const [isLoggedIn, updateIsLoggedIn] = useState(false)
-  const [user, updateUser] = useState(null)
-
+  const [data, updateData] = useState(getCurrentAuthData())
+  
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-      updateIsInitialized(true)
-      updateUser(user)
-      updateIsLoggedIn(!!user)
-    });
-    return unsubscribe
+    return subscribe(updateData)
   }, [])
   
   return {
-    isInitialized,
-    isLoggedIn,
-    user,
+    ...data,
     renderLoadingPage,
     renderLoginPage,
     logout,

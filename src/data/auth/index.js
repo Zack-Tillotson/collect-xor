@@ -22,9 +22,35 @@ function getUi() {
   return ui
 }
 
-// Initialize the FirebaseUI Widget using Firebase.
+// Start the FirebaseUI login Widget using Firebase.
 export const init = targetId => {
   getUi().start(targetId, uiConfig)
 }
 
 export const logout = () => firebase.auth().signOut()
+
+let isInitializing = false
+let isInitialized = false
+let user = null
+let subscribers = [] // callbacks to invoke with new auth state 
+
+export const getCurrentAuthData = () => ({isInitialized, isLoggedIn: !!user, user})
+
+const initializeAuthDataMonitor = () => {
+  isInitializing = true
+  firebase.auth().onAuthStateChanged(authUser => {
+    isInitialized = true
+    user = authUser
+    subscribers.forEach(subscriber => subscriber(getCurrentAuthData()))
+  });
+}
+
+// Subscribe to auth state with this, pass in a callback which will be invoked whenever the auth state
+// changes. Invoke the returned function to remove the subscription.
+export const subscribe = subscriber => {
+  if(!isInitializing) {
+    initializeAuthDataMonitor()
+  }
+  subscribers.push(subscriber)
+  return () => subscribers = subscribers.filter(sub => sub !== subscriber)
+}

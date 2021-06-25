@@ -30,11 +30,12 @@
 
   .item-card__text {
     padding: 0 var(--pad);
+    color:  var(--color-contrast-font-primary);
   }
 
   .item-card__label {
     font-size:  .75rem;
-    color:  var(--color-contrast-primary);
+    color:  var(--color-contrast-font-primary-offset);
   }
 
   .item-card__publisher {

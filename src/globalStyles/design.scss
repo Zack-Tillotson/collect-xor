@@ -87,15 +87,15 @@ video {
     color: var(--color-contrast-font);
   }
 
-  &.--primary {
-    background: var(--color-primary);
-    color: var(--color-contrast-font-primary);
-  }
-
   &.--hollow {
     border-color: #ccc;
     background: none;
     color: var(--color-primary);
+  }
+
+  &.--primary {
+    background: var(--color-primary);
+    color: var(--color-contrast-font-primary);
   }
 
   &.--minimal {

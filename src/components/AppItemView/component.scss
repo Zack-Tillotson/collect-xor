@@ -19,6 +19,7 @@
 
   .item-view__image {
     grid-area: image;
+    min-height: 25vh;
     background: rgba(0,0,0,0) center center no-repeat no-repeat;
   }
 
@@ -34,36 +35,46 @@
     grid-area: secondary;
   }
 
+  .item-view__label {
+    margin-top: var(--pad);
+    color: var(--color-font-primary-offset);
+  }
+
   
   .item-view__ownership {
+  }
+
+  .item-view__ownership-inner {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    text-align: center;
-    grid-gap: 1px;
+    grid-gap: var(--pad-half);
     padding: var(--pad-half);
     
-    .item-view__icon {
-      padding:  var(--pad-quart);
-      color:  var(--brand-grey-2);
-      font-weight: bold;
+    text-align: center;
+  }
+    
+  .item-view__icon {
+    padding:  var(--pad-quart);
+    font-weight: bold;
+  }
 
-      &--active {
-        .item-view__icon-img {
-          color:  var(--color-secondary);
-        }
-        .item-view__icon-label {
-          color:  var(--color-font-primary);
-        }
-      }
+  .item-view__icon-img {
+    font-size:  1.5rem;
+    line-height:  1.5rem;
+  }
+
+  .item-view__icon-label {
+    font-size: .75rem;
+  }
+
+  .item-view__secondary {
+    h3 {
+      font-size: 1.5rem;
     }
 
-    .item-view__icon-img {
-      font-size:  1.5rem;
-      line-height:  1.5rem;
-    }
-
-    .item-view__icon-label {
+    .item-view__label {
       font-size: .75rem;
+      font-weight: bold;
     }
   }
 }

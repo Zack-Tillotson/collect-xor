@@ -4,7 +4,7 @@
  * and the interfaces for triggering CRUD actions.
  */
 
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 
 import collection from './index'
 
@@ -17,7 +17,7 @@ export default (itemId) => {
     })
 
     return () => unlisten()
-  }, [collection])
+  }, [itemId])
   
   return data
 }

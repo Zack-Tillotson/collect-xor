@@ -47,7 +47,7 @@ function initialize(store, collectionType) {
   getStore().dispatch(actions.initialize(collectionType))
   
   const collectionShapePromise = new Promise(resolve => {
-    getDb().collection('itemshapes').doc(collectionType).get().then(doc => {
+    getDb().collection('itemshapes').doc(collectionType).onSnapshot(doc => {
       if(!doc.exists) {
         throw new Error('itemshapes document does not exist - ' + collectionType)
       }
@@ -67,7 +67,7 @@ function initialize(store, collectionType) {
     })
   })
   const collectionOwnershipShapePromise = new Promise(resolve => {
-    getDb().collection('itemshapes').doc(collectionType + 'ownership').get().then(doc => {
+    getDb().collection('itemshapes').doc(collectionType + 'ownership').onSnapshot(doc => {
       if(!doc.exists) {
         throw new Error('itemshapes document does not exist - ' + collectionType + 'ownership')
       }
@@ -90,16 +90,16 @@ function initialize(store, collectionType) {
       .then(user => {
         getDb()
           .collection(`users/${user.uid}/items`)
-          .get()
-          .then(resp => resp.docs.map(doc => {
-            const id = doc.id
-            const data = doc.data()
-            return {id, ...data}
-          }))
-          .then(docs => {
-            getStore().dispatch(actions.dataLoaded({id: 'items', docs}))
-            resolve(docs)
-        })
+          .onSnapshot(
+            resp => Promise.all(resp.docs.map(doc => {
+              const id = doc.id
+              const data = doc.data()
+              return {id, ...data}
+            }))
+            .then(docs => {
+              getStore().dispatch(actions.dataLoaded({id: 'items', docs}))
+              resolve(docs)
+            }))
       })
   })
 
@@ -118,6 +118,7 @@ function listen(callback) {
 
 function upsertItem(item, {id, user}) {
   const collection = getDb().collection(`users/${user.uid}/items`)
+  console.log('upsertItem', item, id)
   if(id) {
     collection.doc(id).set(item)
   } else {
