@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import cn from 'classnames'
 
 import PageHead from '../PageHead'
@@ -10,6 +10,13 @@ function Component(props) {
   const {
     isHeadShown = true,
   } = props;
+
+  const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location])
+
   return (
     <div className="page">
       {isHeadShown && (

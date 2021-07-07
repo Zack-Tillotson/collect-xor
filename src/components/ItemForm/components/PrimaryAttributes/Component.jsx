@@ -33,6 +33,7 @@ function Component(props) {
   const handleScanEnd = data => {
     if(!data || !data.barcode) return
     dispatch(actions.formValuesUpdated(data))
+    if(data.image) updateIsImageInput(true)
   }
 
   const {

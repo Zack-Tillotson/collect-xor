@@ -39,10 +39,14 @@ function awaitUser() {
   return context.userPromise;
 }
 
+function handleAuthChange(user) {
+  if(user) userPromiseResolve(user)
+}
+
 function initialize(store, collectionType) {
   context.store = store;
   context.db = firebase.firestore();
-  firebase.auth().onAuthStateChanged(userPromiseResolve)
+  firebase.auth().onAuthStateChanged(handleAuthChange)
 
   getStore().dispatch(actions.initialize(collectionType))
   
