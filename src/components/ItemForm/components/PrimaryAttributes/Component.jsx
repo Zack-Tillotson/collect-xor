@@ -6,6 +6,7 @@ import actions from 'state/actions'
 
 import './component.scss'
 import useBarcodeScan from './useBarcodeScan'
+import useImageUpload from './useImageUpload'
 
 // XXX this will be hardcoded for BGShelf for now. Generaliztion to come
 
@@ -42,6 +43,10 @@ function Component(props) {
     startScan,
   } = useBarcodeScan(handleScanEnd, useBarcodeLookup)
 
+  const {
+    uploadImage,
+  } = useImageUpload()
+
   const updateValue = attr => event => dispatch(actions.formValuesUpdated({[attr]: event.target.value}))
   const textInput = (attr, label = attr) => ([
     <label htmlFor={`${attr}-input`} key="1" className="attributes__label">{label}</label>,
@@ -50,6 +55,13 @@ function Component(props) {
 
   const handleScanClick = event => startScan()
   const handleImageClick = event => updateIsImageInput(true)
+  const handleImageInputChange = event => {
+    const file = event.target.files[0]
+    uploadImage(file)
+      .then(url => {
+        updateValue('image')({target: {value: url}})
+      })
+  }
   const handleImageInputDoneClick = event => updateIsImageInput(false)
 
   return (
@@ -66,8 +78,9 @@ function Component(props) {
       <div className={cn('attributes__block', 'primary-attributes__image')}>
         {!isImageInput && <img src={values.image} className="attributes__image-pic" onClick={handleImageClick} />}
         {isImageInput && [
-          ...textInput('image', 'Image URL'),
-          <button onClick={handleImageInputDoneClick} key="3" className="attributes__button --button-like">Done</button>
+          ...textInput('image', 'Image'),
+          <button onClick={handleImageInputDoneClick} key="4" className="attributes__button --button-like">Done</button>,
+          <input type="file" onChange={handleImageInputChange} key="3" accept="image/*" className="attributes__button" />,
         ]}
       </div>
       <div className={cn('attributes__block', 'primary-attributes__name')}>

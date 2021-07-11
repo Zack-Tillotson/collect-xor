@@ -38,13 +38,17 @@ function Component(props) {
   }
 
   let requiredAttrs = {}
+  let primaryAttrs = {}
   let otherAttrs = {}
   Object.keys(collection.shape.item).forEach(key => {
     const attr = collection.shape.item[key]
-    if(attr.required) {
-      requiredAttrs[key] = attr
+    if(attr.primary) {
+      primaryAttrs[key] = attr
     } else {
       otherAttrs[key] = attr
+    }
+    if(attr.required) {
+      requiredAttrs[key] = attr
     }
   })
 
@@ -57,7 +61,7 @@ function Component(props) {
 
   return (
      <div className="item-form">
-      <PrimaryAttributes attributes={requiredAttrs} className="app-add-item__primary" />
+      <PrimaryAttributes attributes={primaryAttrs} className="app-add-item__primary" />
       <div className="app-add-item__ownership">
         <h2>Ownership</h2>
         <Ownership attributes={collection.shape.ownership} />

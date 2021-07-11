@@ -5,6 +5,7 @@ import "firebase/auth";
 import "firebase/firestore";
 
 import collection from './collection'
+import image from './image'
 
 const apps = { // TODO move this to a better config location
   'bgshelf': {
@@ -29,6 +30,7 @@ function initialize(store, appId) {
 
   firebase.initializeApp(config.firebaseConfig);
   collection.initialize(store, config.collectionType)
+  image.initialize()
 }
 
 export default initialize
