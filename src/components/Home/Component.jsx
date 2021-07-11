@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Link} from 'react-router-dom';
 
 import cn from 'classnames'
@@ -8,7 +8,18 @@ import Page from 'components/Page'
 import './component.scss'
 import hero from 'assets/bgshelf/logo-400x400.webp'
 
+import useAuth from 'data/auth/useAuth'
+
 function Component(props) {
+
+  const auth = useAuth()
+
+  useEffect(() => {
+    if(auth.isInitialized && auth.isLoggedIn) {
+      window.location = "/app/"
+    }
+  }, [auth.isInitialized, auth.isLoggedIn])
+  
   return (
     <Page isHeadShown={false}>
       <div className="home">
