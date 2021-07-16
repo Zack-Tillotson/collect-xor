@@ -2,38 +2,29 @@ import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import cn from 'classnames'
 
-import actions from 'state/actions'
+import useCollection from 'data/collection/useCollection'
+import Input from '../Input'
 
 import './component.scss'
-
-const formSelector = state => state.addNewItemForm
 
 function Component(props) {
   const {
     className,
-    attributes,
+    attribute, // properties or ownership
   } = props
 
-  const {item: values} = useSelector(formSelector)
-  const dispatch = useDispatch()
+  const collection = useCollection()
 
-  const updateValue = attr => event => dispatch(actions.formValuesUpdated({[attr]: event.target.value}))
-  const textInput = (attr, label = attr) => ([
-    <label htmlFor={`${attr}-input`} key="1" className="attributes__label">{label}</label>,
-    <input id={`${attr}-input`} type="text" value={values[attr] || ''} onChange={updateValue(attr)} key="2" className="attributes__input" />
-  ])
+  const {[attribute]: shape} = collection.shape
 
   return (
     <div className={cn('attribute-list', className)}>
-      {Object.keys(attributes).map(key => {
-        const attribute = attributes[key]
+      {Object.keys(shape).map(key => {
+        const property = shape[key]
         return (
-          <div key={key} className={cn('attributes__block', `attributes__${key}`)}>
-            {textInput(key, attribute.copy)}
-          </div>
+          <Input key={key} className={cn('attributes__block', `attributes__${key}`)} formName={`${attribute}.${key}`} />
         )
       })}
-      
     </div>
   )
 }

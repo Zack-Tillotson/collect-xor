@@ -4,14 +4,11 @@ import deepmerge from 'deepmerge'
 const DEFAULT_STATE = {
   useBarcodeLookup: true, // If true will make API calls whenever UPC is scanned
   id: null,
-  item: {
-    barcode: '',
-    image: '',
-    name: '',
-    publisher: '',
-  },
-  ownership: {}
+  properties: {},
+  ownership: {},
 }
+
+const createDeepPath = (path, value) => path.split('.').reverse().reduce((value, piece) => ({[piece]: value}), value)
 
 function addNewItemForm(state = DEFAULT_STATE, action) {
   switch(action.type) {
@@ -22,22 +19,9 @@ function addNewItemForm(state = DEFAULT_STATE, action) {
       return deepmerge(DEFAULT_STATE, action.payload)
     }
     case types.formValuesUpdated: {
-      return {
-        ...state,
-        item: {
-          ...state.item,
-          ...action.payload,
-        }
-      };
-    }
-    case types.formOwnershipUpdated: {
-      return {
-        ...state,
-        ownership: {
-          ...state.ownership,
-          ...action.payload,
-        }
-      };
+      const {name: path, value} = action.payload
+
+      return deepmerge(state, createDeepPath(path, value))
     }
   }
   return state;

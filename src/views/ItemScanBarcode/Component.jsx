@@ -3,7 +3,7 @@ import cn from 'classnames'
 import './component.scss'
 
 function Component(props) {
-  return 'Scan Barcode'
+  return 'App Scan Barcode'
 }
 
 export default Component;

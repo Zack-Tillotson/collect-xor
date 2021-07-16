@@ -45,71 +45,39 @@ function handleAuthChange(user) {
 
 function initialize(store, collectionType) {
   context.store = store;
-  context.db = firebase.firestore();
+  context.db = firebase.database();
   firebase.auth().onAuthStateChanged(handleAuthChange)
 
   getStore().dispatch(actions.initialize(collectionType))
   
-  const collectionShapePromise = new Promise(resolve => {
-    getDb().collection('itemshapes').doc(collectionType).onSnapshot(doc => {
-      if(!doc.exists) {
+  const shapePromise = new Promise(resolve => {
+    getDb().ref(`itemshapes/${collectionType}`).on('value', snapshot => {
+      
+      if(!snapshot.exists()) {
         throw new Error('itemshapes document does not exist - ' + collectionType)
       }
 
-      // each attribute will be a reference to an 'attribute' collection doc, get those values
-      const shape = doc.data()
-      const attrPromises = Object.keys(shape).reduce((promises, key) => {
-        return {...promises, [key]: shape[key].get()}
-      }, {})
-      Promise.all(Object.values(attrPromises)).then(promiseValues => {
-        const attributes = Object.keys(attrPromises).reduce((values, key, index) => {
-          return ({...values, [key]: promiseValues[index].data()})
-      }, {})
-        getStore().dispatch(actions.dataLoaded({id: 'itemshapes', attributes}))
-        resolve(attributes)
-      })
-    })
-  })
-  const collectionOwnershipShapePromise = new Promise(resolve => {
-    getDb().collection('itemshapes').doc(collectionType + 'ownership').onSnapshot(doc => {
-      if(!doc.exists) {
-        throw new Error('itemshapes document does not exist - ' + collectionType + 'ownership')
-      }
-      // each attribute will be a reference to an 'attribute' collection doc, get those values
-      const shape = doc.data()
-      const attrPromises = Object.keys(shape).reduce((promises, key) => {
-        return {...promises, [key]: shape[key].get()}
-      }, {})
-      Promise.all(Object.values(attrPromises)).then(promiseValues => {
-        const attributes = Object.keys(attrPromises).reduce((values, key, index) => {
-          return ({...values, [key]: promiseValues[index].data()})
-      }, {})
-        getStore().dispatch(actions.dataLoaded({id: 'itemownershipshapes', attributes}))
-        resolve(attributes)
-      })
+      const shape = snapshot.val()
+      getStore().dispatch(actions.dataLoaded({id: 'itemshapes', data: shape}))
+      resolve(shape)
     })
   })
   const collectionPromise = new Promise(resolve => {
     awaitUser()
       .then(user => {
         getDb()
-          .collection(`users/${user.uid}/items`)
-          .onSnapshot(
-            resp => Promise.all(resp.docs.map(doc => {
-              const id = doc.id
-              const data = doc.data()
-              return {id, ...data}
-            }))
-            .then(docs => {
-              getStore().dispatch(actions.dataLoaded({id: 'items', docs}))
-              resolve(docs)
-            }))
+          .ref(`users/${user.uid}/items`)
+          .on('value', snapshot => {
+              const items = snapshot.val()
+              getStore().dispatch(actions.dataLoaded({id: 'items', data: items}))
+              resolve(items)
+            })
+          })
       })
-  })
 
   return Promise
-    .all([collectionShapePromise, collectionOwnershipShapePromise, collectionPromise])
-    .then(([shape, ownershipShape, items]) => ({shape, ownershipShape, items}))
+    .all([shapePromise, collectionPromise])
+    .then(([shape, items]) => ({shape, items}))
 }
 
 function get() {

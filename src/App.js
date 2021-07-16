@@ -7,13 +7,13 @@ import {
 import {Provider} from 'react-redux'
 
 import Home from 'components/Home';
-import AppHome from 'components/AppHome';
-import AppEditItem from 'components/AppEditItem';
-import AppAddItem from 'components/AppAddItem';
-import AppItemScanBarcode from 'components/AppItemScanBarcode';
-import AppItemLookupBarcode from 'components/AppItemLookupBarcode';
-import AppItemLookupName from 'components/AppItemLookupName';
-import AppItemView from 'components/AppItemView';
+import AppHome from 'views/Home';
+import AppEditItem from 'views/EditItem';
+import AppAddItem from 'views/AddItem';
+import AppItemScanBarcode from 'views/ItemScanBarcode';
+import AppItemLookupBarcode from 'views/ItemLookupBarcode';
+import AppItemLookupName from 'views/ItemLookupName';
+import AppItemView from 'views/ItemView';
 import FileNotFound from 'components/FileNotFound';
 
 import useAuth from 'data/auth/useAuth'

@@ -8,11 +8,17 @@ import actions from 'state/actions'
 import useAuth from 'data/auth/useAuth'
 import useCollection from 'data/collection/useCollection'
 
-import PrimaryAttributes from './components/PrimaryAttributes'
-import Ownership from './components/Ownership'
 import AttributeList from './components/AttributeList'
+import Input from './components/Input'
 
 const formSelector = state => state.addNewItemForm
+
+function hasMissingRequired(shape, item) {
+  const isIdValid = !shape.id.required || item.id
+  const isPropertiesValid = Object.keys(shape.properties).every(attr => !shape.properties[attr].required || item.properties[attr])
+  const isOwnershipValid = Object.keys(shape.ownership).every(attr => !shape.ownership[attr].required || item.ownership[attr])
+  return isIdValid && isPropertiesValid && isOwnershipValid
+}
 
 function Component(props) {
 
@@ -37,22 +43,7 @@ function Component(props) {
     return auth.renderLoadingPage() 
   }
 
-  let requiredAttrs = {}
-  let primaryAttrs = {}
-  let otherAttrs = {}
-  Object.keys(collection.shape.item).forEach(key => {
-    const attr = collection.shape.item[key]
-    if(attr.primary) {
-      primaryAttrs[key] = attr
-    } else {
-      otherAttrs[key] = attr
-    }
-    if(attr.required) {
-      requiredAttrs[key] = attr
-    }
-  })
-
-  const isValid = Object.keys(requiredAttrs).every(key => form.item[key])
+  const isValid = hasMissingRequired(collection.shape, form)
 
   const handleFormSubmit = event => {
     if(!isValid) return
@@ -61,14 +52,16 @@ function Component(props) {
 
   return (
      <div className="item-form">
-      <PrimaryAttributes attributes={primaryAttrs} className="app-add-item__primary" />
+      <div className="app-add-item__primary">
+        <Input formName="id" />
+      </div>
       <div className="app-add-item__ownership">
         <h2>Ownership</h2>
-        <Ownership attributes={collection.shape.ownership} />
+        <AttributeList attribute="ownership" />
       </div>
       <div className="app-add-item__attributes">
         <h2>More attributes</h2>
-        <AttributeList attributes={otherAttrs} />
+        <AttributeList attribute="properties" />
       </div>
       <div className="app-add-item__form-controls">
         <button className={cn('--button-like', '--primary', {['--disabled']: !isValid})} onClick={handleFormSubmit}>Submit</button>

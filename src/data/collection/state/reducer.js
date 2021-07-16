@@ -6,17 +6,14 @@ const DEFAULT_STATE = {
     isInitialized: false,
   },
   items: null,
-  shape: { // Item attribute information
-    item: null,
-    ownership: null,
-  },
+  shape: null,
 }
 
 function addIsInitialized(state) {
   return {
     ...state,
     meta: {
-      isInitialized: !!state.shape.ownership && !!state.shape.item && !!state.items,
+      isInitialized: !!state.shape && !!state.items,
     },
   }
 }
@@ -32,19 +29,13 @@ function collection(state = DEFAULT_STATE, action) {
         case 'itemshapes': {
           return addIsInitialized({
             ...state, 
-            shape: {...state.shape, item: action.payload.attributes},
-          })
-        }
-        case 'itemownershipshapes': {
-          return addIsInitialized({
-            ...state, 
-            shape: {...state.shape, ownership: action.payload.attributes},
+            shape: action.payload.data,
           })
         }
         case 'items': {
           return addIsInitialized({
             ...state, 
-            items: action.payload.docs,
+            items: action.payload.data || [],
           })
         }
       }
