@@ -8,6 +8,7 @@ import useCollection from 'data/collection/useCollection'
 
 import Barcode from './Barcode'
 import Image from './Image';
+import Bool from './Bool';
 import Text from './Text'
 
 const formSelector = state => state.addNewItemForm
@@ -27,7 +28,7 @@ function Component(props) {
 
   const onUpdate = value => dispatch(actions.formValuesUpdated({name: formName, value}))
 
-  const inputProps = {className, shape, value, onUpdate}
+  const inputProps = {className, formName, shape, value, onUpdate}
   
   switch(shape.type) {
     case 'barcode': {
@@ -35,6 +36,12 @@ function Component(props) {
     }
     case 'string': {
       return <Text {...inputProps} />
+    }
+    case 'boolean': {
+      return <Bool {...inputProps} />
+    }
+    case 'image': {
+      return <Image {...inputProps} />
     }
   }
   return 'Input type not supported (' + formName + ', ' + shape.type + ')'
