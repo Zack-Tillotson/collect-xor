@@ -16,20 +16,6 @@ function Component(props) {
     if(!value) return
 
     dispatch(actions.formValuesUpdated({name: 'id', value}))
-
-    // return fetch(`https://api.barcodespider.com/v1/lookup?token=b26e52aca779f1103306&upc=${barcode}`)
-    //   .then(resp => resp.json())
-    //   .then(data => {
-    //     const {title, publisher, image} = data.item_attributes
-    //     const itemInfo = {barcode, name: title, publisher, image}
-    //     onScanEnd(itemInfo)
-    //     return itemInfo
-    //   })
-    //   .catch(err => {
-    //     onScanEnd({barcode})
-    //     return {barcode}
-    //   })
-
   }
 
   const {

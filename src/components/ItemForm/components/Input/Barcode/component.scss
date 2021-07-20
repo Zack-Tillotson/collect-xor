@@ -1,0 +1,11 @@
+.barcode-input {
+  display: flex;
+
+  .barcode-input__input {
+    flex: 1;
+  }
+
+  .barcode-input__button {
+    margin-left: var(--pad);
+  }
+}

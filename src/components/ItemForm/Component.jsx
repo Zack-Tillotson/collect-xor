@@ -28,10 +28,6 @@ function Component(props) {
   const form = useSelector(formSelector)
   const [tab, updateTab] = useState('attributes')
 
-  useEffect(() => {
-    dispatch(actions.formInitialized(props.item))
-  }, [props.item])
-
   if(!auth.isInitialized) {
     return auth.renderLoadingPage()
   }

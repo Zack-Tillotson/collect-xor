@@ -16,15 +16,16 @@ function Component(props) {
   const {
     className,
     showLink = true,
+    ...restProps
   } = props
 
   const collection = useCollection()
 
   return (
-      <div className={cn('attributes__block', 'primary-attributes__upc', className)}>
-        <TextInput {...props} />
+      <div className={cn('barcode-input', className)}>
+        <TextInput className={cn('barcode-input__input', className)} {...restProps} />
         {showLink && (
-          <Link to="scan-barcode/" className="attributes__button --button-like --primary">
+          <Link to="scan-barcode/" className="barcode-input__button --button-like --primary">
             Scan
           </Link>
         )}
