@@ -1,4 +1,4 @@
-.barcode-scan #image-viewport {
+.scan-barcode #image-viewport {
   display: none;
 
   canvas {
@@ -6,15 +6,7 @@
   }
 }
 
-.barcode-scan--open {
-  position: fixed;
-  left:  var(--pad);  
-  right:  var(--pad);  
-  bottom:  var(--pad);  
-  top:  var(--pad);
-
-  background: #ccc;
-
+.scan-barcode__scan--open {
   #image-viewport {
     display: block;
   }

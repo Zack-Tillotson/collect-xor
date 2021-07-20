@@ -15,7 +15,7 @@ const REQUIRED_DETECTION_COUNT = 8
 
 let barcodes = {}
 
-function useBarcodeScan(onScanEnd, useBarcodeLookup) {
+function useBarcodeScan(onScanEnd) {
 
   const [isScanOpen, updateIsScanOpen] = useState(false)
   const [status, updateStatus] = useState(STATUS.default)
@@ -28,27 +28,9 @@ function useBarcodeScan(onScanEnd, useBarcodeLookup) {
     updateIsScanOpen(false)
     updateStatus(STATUS.complete)
     
-    if(!barcode || !useBarcodeLookup) {
-      onScanEnd({barcode})
-      return Promise.resolve({barcode})
-    }
-
-    return fetch(`https://api.barcodespider.com/v1/lookup?token=b26e52aca779f1103306&upc=${barcode}`)
-      .then(resp => resp.json())
-      .then(data => {
-        const {title, publisher, image} = data.item_attributes
-        const itemInfo = {barcode, name: title, publisher, image}
-        onScanEnd(itemInfo)
-        return itemInfo
-      })
-      .catch(err => {
-        onScanEnd({barcode})
-        return {barcode}
-      })
-
-    
+    onScanEnd(barcode)
   }
-  const handleCancelClick = event => handleScanComplete(null)
+  const cancelScan = event => handleScanComplete(null)
 
   const handleBarcodeFound = resp => {
     const code = resp.codeResult.code
@@ -104,20 +86,15 @@ function useBarcodeScan(onScanEnd, useBarcodeLookup) {
     });
   }
 
-  const scanRender = (
-    <div className={cn('barcode-scan', {['barcode-scan--open']: isScanOpen})}>
-      {isScanOpen && (<h2>Scan the barcode</h2>)}
-      {isScanOpen && (<p>Hold the barcode up to the camera - make sure you've allowed this app to use your camera!</p>)}
-      <div id="image-viewport" />
-      {isScanOpen && (<div className="barcode-scan__feedback">{status} {status === STATUS.scanning && `${Math.floor(highestCount / REQUIRED_DETECTION_COUNT * 100)}%`}</div>)}
-      {isScanOpen && (<button onClick={handleCancelClick}>Cancel</button>)}
-    </div>
-  )
+  const percentLoaded = Math.floor(highestCount / REQUIRED_DETECTION_COUNT * 100)
 
   return {
     isScanOpen,
-    scanRender,
     startScan,
+    cancelScan,
+    status,
+    STATUS,
+    percentLoaded,
   }
 }
 

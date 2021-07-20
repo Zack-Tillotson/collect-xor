@@ -1,0 +1,23 @@
+.scan-barcode {
+
+  .scan-barcode__scan {
+    min-height: 300px;
+    cursor: pointer;
+
+    &--closed {
+      background: url('https://firebasestorage.googleapis.com/v0/b/bgshelf.appspot.com/o/barcode.png?alt=media&token=bb2857fe-61f9-43a7-b252-7042c1feb3a6') center center no-repeat no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .scan-barcode__helper {
+    font-size: 14px;
+    color: #333;
+  }
+
+  .scan-barcode__scan {
+    max-width: 450px;
+    max-height: 50vh;
+    margin: 0 auto;
+  }
+}

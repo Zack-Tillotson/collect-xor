@@ -1,4 +1,4 @@
-import React, { isValidElement, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import cn from 'classnames'
 
@@ -26,6 +26,7 @@ function Component(props) {
   const collection = useCollection()
   const dispatch = useDispatch()
   const form = useSelector(formSelector)
+  const [tab, updateTab] = useState('attributes')
 
   useEffect(() => {
     dispatch(actions.formInitialized(props.item))
@@ -50,22 +51,33 @@ function Component(props) {
     dispatch(actions.formSubmittted())
   }
 
+  const handleTabClick = attribute => event => updateTab(attribute)
+
   return (
      <div className="item-form">
-      <div className="app-add-item__primary">
+      <div className="item-form__id">
         <Input formName="id" />
       </div>
-      <div className="app-add-item__ownership">
-        <h2>Ownership</h2>
-        <AttributeList attribute="ownership" />
+      <div className="item-form__tabs">
+        <h4 className={cn('item-form__tab-title', {['item-form__tab-title--active']: tab === 'attributes'})} onClick={handleTabClick('attributes')}>Attributes</h4>
+        <h4 className={cn('item-form__tab-title', {['item-form__tab-title--active']: tab === 'ownership'})} onClick={handleTabClick('ownership')}>Ownership</h4>
       </div>
-      <div className="app-add-item__attributes">
-        <h2>More attributes</h2>
-        <AttributeList attribute="properties" />
-      </div>
-      <div className="app-add-item__form-controls">
-        <button className={cn('--button-like', '--primary', {['--disabled']: !isValid})} onClick={handleFormSubmit}>Submit</button>
-      </div>
+      {tab === 'attributes' && (
+        <div className="item-form__attributes">
+          <AttributeList attribute="properties" />
+          <div className="item-form__form-controls">
+            <button className={cn('--button-like', '--primary', {['--disabled']: !isValid})} onClick={handleFormSubmit}>Submit</button>
+          </div>
+        </div>
+      )}
+      {tab === 'ownership' && (
+        <div className="item-form__ownership">
+          <AttributeList attribute="ownership" />
+          <div className="item-form__form-controls">
+            <button className={cn('--button-like', '--primary', {['--disabled']: !isValid})} onClick={handleFormSubmit}>Submit</button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

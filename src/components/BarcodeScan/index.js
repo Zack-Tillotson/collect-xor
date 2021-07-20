@@ -1,1 +1,2 @@
-export default from 'Component'
+import C from './Component'
+export default C

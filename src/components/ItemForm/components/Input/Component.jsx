@@ -15,8 +15,8 @@ const formSelector = state => state.addNewItemForm
 
 function Component(props) {
   const {
-    className,
     formName,
+    ...restProps
   } = props
   const collection = useCollection()
 
@@ -28,7 +28,7 @@ function Component(props) {
 
   const onUpdate = value => dispatch(actions.formValuesUpdated({name: formName, value}))
 
-  const inputProps = {className, formName, shape, value, onUpdate}
+  const inputProps = {...restProps, formName, shape, value, onUpdate}
   
   switch(shape.type) {
     case 'barcode': {

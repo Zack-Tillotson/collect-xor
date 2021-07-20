@@ -1,32 +1,21 @@
-.app-add-item {
-  h1 {
-  }
+.item-form__tabs {
+  display: flex;
+  flex-flow: row nowrap;
+  border-bottom: solid 2px #ccc;
 }
 
-.attributes__block {
-    display: flex;
-    flex-flow: row wrap;
-    width: 100%;
+.item-form__tab-title {
+  position: relative;
+  bottom: -2px;
 
-  .attributes__label {
-    display: block;
-    width: 100%;
+  flex: 1;
+  margin: var(--pad) var(--pad) 0 var(--pad);
+  padding: var(--pad);
+  border: solid 2px #ccc;
 
-    margin-top: var(--pad);
+  cursor: pointer;
 
-    font-size: .75rem;
-    color: var(--color-font-primary);
-    font-weight: bold;
-    
-  }
-
-  .attributes__input {
-    display: block;
-    flex: 1;
-  }
-
-  .attributes__button {
-    display: inline-block;
-    margin: 0 0 0 var(--pad);
+  &--active {
+    border-bottom: solid 2px var(--color-bg);
   }
 }

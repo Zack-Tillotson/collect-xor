@@ -15,18 +15,19 @@ const formSelector = state => state.addNewItemForm
 function Component(props) {
   const {
     className,
+    showLink = true,
   } = props
-  const collection = useCollection()
 
-  const {properties: values, useBarcodeLookup} = useSelector(formSelector)
-  const dispatch = useDispatch()
+  const collection = useCollection()
 
   return (
       <div className={cn('attributes__block', 'primary-attributes__upc', className)}>
         <TextInput {...props} />
-        <Link to="scan-barcode/" className="attributes__button --button-like --primary">
-          Scan
-        </Link>
+        {showLink && (
+          <Link to="scan-barcode/" className="attributes__button --button-like --primary">
+            Scan
+          </Link>
+        )}
       </div>
   )
 }
