@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux'
+import {Link} from 'react-router-dom'
 import cn from 'classnames'
 
 import './component.scss'
@@ -60,6 +61,8 @@ function Component(props) {
       </div>
       {tab === 'attributes' && (
         <div className="item-form__attributes">
+          <Link to="lookup-barcode/">Lookup by barcode</Link>
+          <Link to="lookup-name/">Lookup by name</Link>
           <AttributeList attribute="properties" />
           <div className="item-form__form-controls">
             <button className={cn('--button-like', '--primary', {['--disabled']: !isValid})} onClick={handleFormSubmit}>Submit</button>

@@ -68,7 +68,8 @@ function initialize(store, collectionType) {
         getDb()
           .ref(`users/${user.uid}/items`)
           .on('value', snapshot => {
-              const items = snapshot.val()
+              const itemsObj = snapshot.val() || {}
+              const items = Object.keys(itemsObj).map(id => ({id, ...itemsObj[id]}))
               getStore().dispatch(actions.dataLoaded({id: 'items', data: items}))
               resolve(items)
             })
@@ -89,13 +90,15 @@ function listen(callback) {
 }
 
 function upsertItem(item, {id, user}) {
-  const collection = getDb().collection(`users/${user.uid}/items`)
+  const collection = getDb().ref(`users/${user.uid}/items`)
   
   if(id) {
-    collection.doc(id).set(item)
-    return {id}
+    collection.child(id).update(item)
+    return id
   } else {
-    return collection.add(item)
+    const key = collection.push().key
+    collection.update({[key]: item})
+    return key
   }
 }
 

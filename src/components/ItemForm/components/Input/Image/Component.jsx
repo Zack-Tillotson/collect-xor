@@ -25,7 +25,7 @@ function Component(props) {
   const {properties: values, useBarcodeLookup} = useSelector(formSelector)
   const dispatch = useDispatch()
 
-  const [isImageInput, updateIsImageInput] = useState(!values.image)
+  const [isImageInput, updateIsImageInput] = useState(!value)
 
   const {
     uploadImage,

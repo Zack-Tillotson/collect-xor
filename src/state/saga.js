@@ -6,11 +6,11 @@ import collection from 'data/collection'
 import { getCurrentAuthData } from '../data/auth'
 
 function* handleFormSubmitted(action) {
-  const {id, item, ownership} = yield(select(state => state.addNewItemForm))
+  const {id, properties, ownership} = yield(select(state => state.addNewItemForm))
   const {user} = yield(call(getCurrentAuthData))
-  const result = yield call(collection.upsertItem, {item, ownership}, {id, user})
+  const result = yield call(collection.upsertItem, {properties, ownership}, {id, user})
   
-  const loc = result.id ? `/app/${result.id}/` : '/app/';
+  const loc = id ? `/app/${id}/` : '/app/';
   window.hackHistory.push(loc)
 }
 
