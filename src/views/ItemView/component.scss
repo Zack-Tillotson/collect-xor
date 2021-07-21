@@ -23,6 +23,7 @@
     grid-area: image;
     min-height: 25vh;
     background: rgba(0,0,0,0) center center no-repeat no-repeat;
+    background-size: contain;
   }
 
   .item-view__text {

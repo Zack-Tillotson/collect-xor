@@ -13,7 +13,7 @@ const createDeepPath = (path, value) => path.split('.').reverse().reduce((value,
 function addNewItemForm(state = DEFAULT_STATE, action) {
   switch(action.type) {
     case types.formInitialized:
-      case types.formSubmitted: {
+    case types.formSubmitted: {
       if(!action.payload) {
         return DEFAULT_STATE
       }

@@ -40,51 +40,41 @@ function Component(props) {
     return auth.renderLoadingPage()
   }
 
-  let requiredAttrs = {}
-  let otherAttrs = {}
-  Object.keys(collection.shape.item).forEach(key => {
-    const attr = collection.shape.item[key]
-    if(attr.required) {
-      requiredAttrs[key] = attr
-    } else {
-      otherAttrs[key] = attr
-    }
-  })
+  const {id, properties, ownership = {}} = item
 
-
-  const handleOwnershipClick = attr => event => dispatch(actions.itemUpdated({id: itemId, ownership: {[attr]: !item.ownership[attr]}}))
+  const handleOwnershipClick = attr => event => dispatch(actions.itemUpdated({id: itemId, ownership: {[attr]: !ownership[attr]}}))
   const handleDeleteClick = event => window.confirm('Confirm delete? This can not be undone.') && dispatch(actions.itemDelete(itemId))
   
   return (
     <Page className="app-item-view item-view">
-      <div className="item-view__image" style={{backgroundImage: `url(${item.item.image})`}} />
+      <div className="item-view__image" style={{backgroundImage: `url("${properties.canonicalImage}")`}} />
       <div className="item-view__text">
         <div className="item-view__label">Name</div>
-        <Link to={`/app/${item.id}/`} className="item-list__item">
+        <Link to={`/app/${id}/`} className="item-list__item">
           <h1 className="item-view__name">
             <span className="item-view__inner">
-              {item.item.name}
+              {properties.name}
             </span>
           </h1>
         </Link>
         <div className="item-view__label">Publisher</div>
         <div className="item-view__publisher">
           <span className="item-view__inner">
-            {item.item.publisher}
+            {properties.publisher}
           </span>
         </div>
       </div>
       <div className="item-view__ownership">
         <div className="item-view__ownership-inner">
-          <button className={cn('item-view__icon --button-like --hollow', {'--primary': item.ownership.ownIt})} onClick={handleOwnershipClick('ownIt')}>
+          <button className={cn('item-view__icon --button-like --hollow', {'--primary': ownership.ownIt})} onClick={handleOwnershipClick('ownIt')}>
             <div className="item-view__icon-img">✓</div>
             <div className="item-view__icon-label">Owned</div>
           </button>
-          <button className={cn('item-view__icon --button-like --hollow', {'--primary': item.ownership.favorite})} onClick={handleOwnershipClick('favorite')}>
+          <button className={cn('item-view__icon --button-like --hollow', {'--primary': ownership.favorite})} onClick={handleOwnershipClick('favorite')}>
             <div className={'item-view__icon-img'}>♥</div>
             <div className="item-view__icon-label">Favorite</div>
           </button>
-          <button className={cn('item-view__icon --button-like --hollow', {'--primary': item.ownership.playedIt})} onClick={handleOwnershipClick('playedIt')}>
+          <button className={cn('item-view__icon --button-like --hollow', {'--primary': ownership.playedIt})} onClick={handleOwnershipClick('playedIt')}>
             <div className={'item-view__icon-img'}>♟</div>
             <div className="item-view__icon-label">Played</div>
           </button  >
@@ -92,15 +82,18 @@ function Component(props) {
       </div>
       <div className="item-view__secondary">
         <h2>Attributes</h2>
-        {Object.keys(otherAttrs).reduce((soFar, key) => {
-          const attribute = otherAttrs[key]
+        {Object.keys(collection.shape.properties).reduce((soFar, key) => {
+          const attribute = collection.shape.properties[key]
+
+          if(attribute.type !== 'string') return soFar
+
           return [...soFar, 
             <div key={`${key}-name`} className="item-view__label">
               {attribute.copy}
             </div>
           ,
             <div key={`${key}-value`} className="item-view__value">
-              {item.item[key] || '-'}
+              {properties[key] || '-'}
             </div>
           ]
         }, [])}

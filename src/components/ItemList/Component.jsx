@@ -14,7 +14,7 @@ function Component(props) {
         const {properties, ownership = {}} = item
         return (
           <Link to={`/app/${item.id}/`} key={item.id} className="item-list__item item-card">
-            <div className="item-card__image" style={{backgroundImage: `url(${properties.image})`}} />
+            <div className="item-card__image" style={{backgroundImage: `url("${properties.canonicalImage}")`}} />
             <div className="item-card__text">
               <div className="item-card__label">Name:</div>
               <h3 className="item-card__name">
