@@ -3,6 +3,7 @@ import cn from 'classnames'
 import Quagga from 'quagga';
 
 import './useBarcodeScan.scss'
+import useBarcodeLookup from './useBarcodeLookup';
 
 const STATUS = {
   default: 'Initializing',
@@ -15,22 +16,21 @@ const REQUIRED_DETECTION_COUNT = 8
 
 let barcodes = {}
 
-function useBarcodeScan(onScanEnd) {
+function useBarcodeScan() {
 
   const [isScanOpen, updateIsScanOpen] = useState(false)
   const [status, updateStatus] = useState(STATUS.default)
   const [highestCount, updateHighestCount] = useState(0)
+  const {lookup} = useBarcodeLookup()
 
-  const handleScanComplete = barcode => {
+  const handleScanComplete = () => {
     Quagga.stop()
     Quagga.offDetected(handleBarcodeFound)
 
     updateIsScanOpen(false)
     updateStatus(STATUS.complete)
-    
-    onScanEnd(barcode)
   }
-  const cancelScan = event => handleScanComplete(null)
+  const cancelScan = event => handleScanComplete()
 
   const handleBarcodeFound = resp => {
     const code = resp.codeResult.code
@@ -41,7 +41,9 @@ function useBarcodeScan(onScanEnd) {
     updateHighestCount(highestCount)
     if(highestCount > REQUIRED_DETECTION_COUNT) {
       const highestCode = Object.keys(barcodes).find(code => barcodes[code] === highestCount)
-      handleScanComplete(highestCode)
+
+      handleScanComplete()
+      return lookup(highestCode)
     }
   }
 

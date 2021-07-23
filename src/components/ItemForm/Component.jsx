@@ -67,10 +67,6 @@ function Component(props) {
       </div>
       {tab === 'attributes' && (
         <div className="item-form__attributes">
-          <ul>
-            <li><Link to="lookup-barcode/">Lookup by barcode</Link></li>
-            <li><Link to="lookup-name/">Lookup by name</Link></li>
-          </ul>
           <AttributeList attribute="properties" />
           <div className="item-form__form-controls">
             <button className={cn('--button-like', '--primary', {['--disabled']: !isValid})} onClick={handleFormSubmit}>Submit</button>

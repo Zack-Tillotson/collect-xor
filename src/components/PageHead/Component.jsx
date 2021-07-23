@@ -47,6 +47,7 @@ function Component(props) {
               <div>
                 <h3>User</h3>
                 {user.displayName && (<div className="page-head-menu__item">{user.displayName}</div>)}
+                {user.email && (<div className="page-head-menu__item">{user.email}</div>)}
                 <button className="page-head-menu__item" onClick={handleLogOutClick}>Log out</button>
                 <hr />
               </div>

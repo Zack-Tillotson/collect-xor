@@ -4,6 +4,7 @@ import './component.scss'
 
 import Page from 'components/Page'
 import ItemForm from 'components/ItemForm'
+import FormBreadcrumbs from 'components/FormBreadcrumbs'
 
 import useAuth from 'data/auth/useAuth'
 import useCollection from 'data/collection/useCollection'
@@ -27,7 +28,8 @@ function Component(props) {
 
   return (
      <Page className="app-add-item">
-      <h1>Add an item</h1>
+      <FormBreadcrumbs step={3} location={props.location} />
+      <h1>Review</h1>
       <ItemForm />
     </Page>
   )

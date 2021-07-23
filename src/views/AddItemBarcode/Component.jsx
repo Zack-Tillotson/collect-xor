@@ -5,6 +5,7 @@ import './component.scss'
 
 import Page from 'components/Page'
 import BarcodeScan from 'components/BarcodeScan'
+import FormBreadcrumbs from 'components/FormBreadcrumbs'
 
 import useAuth from 'data/auth/useAuth'
 import useCollection from 'data/collection/useCollection'
@@ -27,10 +28,14 @@ function Component(props) {
   }
 
   return (
-     <Page className="app-item-scan-barcode">
-      <Link to="..">← Back</Link>
+    <Page className="add-item-barcode">
+      <FormBreadcrumbs step={1} location={props.location} />
       <h1>Scan Barcode</h1>
       <BarcodeScan />
+      <div className="add-item-barcode__alternate-controls">
+        <div>- or -</div>
+        <Link to="/app/add/attributes/" className="--button-like --hollow">Skip</Link>
+      </div>
     </Page>
   )
 }

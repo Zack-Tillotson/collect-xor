@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 import cn from 'classnames'
 
@@ -9,17 +9,28 @@ import './component.scss'
 import hero from 'assets/bgshelf/logo-400x400.webp'
 
 import useAuth from 'data/auth/useAuth'
+import useCollection from 'data/collection/useCollection'
 
 function Component(props) {
 
   const auth = useAuth()
+  const collection = useCollection()
+  let history = useHistory();
 
   useEffect(() => {
     if(auth.isInitialized && auth.isLoggedIn) {
-      window.location = "/app/"
+      history.push('/app/')
     }
   }, [auth.isInitialized, auth.isLoggedIn])
-  
+
+  if(!auth.isInitialized) {
+    return auth.renderLoadingPage()
+  }
+
+  if(!collection.meta.isInitialized) {
+    return auth.renderLoadingPage() 
+  }
+
   return (
     <Page isHeadShown={false}>
       <div className="home">

@@ -12,11 +12,6 @@ import useBarcodeScan from './useBarcodeScan'
 function Component(props) {
 
   const handleScanClick = event => startScan()
-  const handleScanEnd = value => {
-    if(!value) return
-
-    dispatch(actions.formValuesUpdated({name: 'id', value}))
-  }
 
   const {
     isScanOpen,
@@ -25,8 +20,8 @@ function Component(props) {
     percentLoaded,
     startScan,
     cancelScan
-  } = useBarcodeScan(handleScanEnd)
-
+  } = useBarcodeScan()
+  
   const dispatch = useDispatch()
 
   return (
@@ -40,10 +35,10 @@ function Component(props) {
       {isScanOpen && (<button onClick={cancelScan}>Cancel</button>)}
       {status === STATUS.default && (<p className="scan-barcode__helper">Hold the barcode up to the camera - make sure you've allowed this app to use your camera!</p>)}
       {status === STATUS.complete && (
-        <div>
+        <div className="scan-barcode__complete-controls">
           <h3>{status}</h3>
           <Input formName="id" showLink={false} />
-          <Link to="../lookup-barcode/">Look up attributes</Link>
+          <Link to="/app/add/attributes/" className="--button-like --primary">Next: Attributes</Link>
         </div>
       )}
     </div>

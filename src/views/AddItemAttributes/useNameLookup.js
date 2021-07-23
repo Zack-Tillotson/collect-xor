@@ -58,7 +58,7 @@ function useNameLookup(formName = 'properties.name') {
             value: [...item.children].find(attr => attr.tagName === 'image').innerHTML,
           }, {
             name: 'properties.publisher',
-            value: [...item.children].filter(attr => attr.tagName === 'link' && attr.getAttribute('type') === 'boardgamepublisher').map(pub => pub.getAttribute('value')).join(', '),
+            value: [...item.children].find(attr => attr.tagName === 'link' && attr.getAttribute('type') === 'boardgamepublisher').getAttribute('value'),
           }, {
             name: 'properties.designer',
             value: [...item.children].filter(attr => attr.tagName === 'link' && attr.getAttribute('type') === 'boardgamedesigner').map(pub => pub.getAttribute('value')).join(', '),

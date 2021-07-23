@@ -1,7 +1,12 @@
 .scan-barcode {
 
   .scan-barcode__scan {
-    min-height: 300px;
+    min-height: 150px;
+    max-height: 50vh;
+    max-width: 75vw;
+
+    margin: 0 auto;
+    
     cursor: pointer;
 
     &--closed {
@@ -15,9 +20,7 @@
     color: #333;
   }
 
-  .scan-barcode__scan {
-    max-width: 450px;
-    max-height: 50vh;
-    margin: 0 auto;
+  .scan-barcode__complete-controls {
+    text-align: center;
   }
 }

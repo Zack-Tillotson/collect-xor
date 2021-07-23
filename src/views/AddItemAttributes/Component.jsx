@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom'
+import cn from 'classnames'
 
 import './component.scss'
 
 import Page from 'components/Page'
 import Input from 'components/ItemForm/components/Input'
+import FormBreadcrumbs from 'components/FormBreadcrumbs'
 
 import useAuth from 'data/auth/useAuth'
 import useCollection from 'data/collection/useCollection'
@@ -44,11 +46,11 @@ function Component(props) {
 
   return (
      <Page className="app-item-scan-barcode">
-      <Link to="..">← Back</Link>
+      <FormBreadcrumbs step={2} location={props.location} />
       <h1>Lookup Attributes</h1>
       <Input formName="properties.name" />
-      <button className="--button-like --primary" onClick={handleStartClick}>Lookup</button>
-      {step === 'items' && (
+      <button className={cn('--button-like', step === 'items' ? '--primary' : '--hollow')} onClick={handleStartClick}>Lookup</button>
+      {step === 'items' && games.length > 0 && (
         <div className="attributes-list">
           <h3>BoardGameGeek Games</h3>
           {games.map(game => (
@@ -62,8 +64,8 @@ function Component(props) {
           <Input formName="properties.name" />
           <Input formName="properties.publisher" />
           <Input formName="properties.canonicalImage" />
-          <Input formName="properties.publisher" />
           <Input formName="properties.designer" />
+          <Link to="/app/add/review/" className="--button-like --primary">Next: Review</Link>
         </div>
       )}
     </Page>
