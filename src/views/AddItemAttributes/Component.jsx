@@ -54,7 +54,7 @@ function Component(props) {
         <div className="attributes-list">
           <h3>BoardGameGeek Games</h3>
           {games.map(game => (
-            <button key={game.id} className="--button-like --hollow" onClick={handleItemClick(game)}>{game.name} - {game.year}</button>
+            <button key={game.id} className="--button-like --hollow --wide" onClick={handleItemClick(game)}>{game.name} - {game.year}</button>
           ))}
         </div>
       )}
@@ -62,6 +62,8 @@ function Component(props) {
         <div className="attributes-list">
           <h3>BoardGameGeek Attributes</h3>
           <Input formName="properties.name" />
+          <Input formName="properties.releaseDate" />
+          <Input formName="properties.description" />
           <Input formName="properties.publisher" />
           <Input formName="properties.canonicalImage" />
           <Input formName="properties.designer" />

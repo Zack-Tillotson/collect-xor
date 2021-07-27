@@ -27,7 +27,7 @@ function Component(props) {
       </div>
       <div className="page__foot">
         <div className="page__container">
-          <a href="https://zacherytillotson.com">© Zack Tillotson</a>
+          <a href="https://zacherytillotson-com.web.app">© Zack Tillotson</a>
         </div>
       </div>
     </div>

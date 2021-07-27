@@ -54,6 +54,9 @@ function useNameLookup(formName = 'properties.name') {
             name: 'properties.releaseDate',
             value: [...item.children].find(attr => attr.tagName === 'yearpublished').getAttribute('value'),
           }, {
+            name: 'properties.description',
+            value: [...item.children].find(attr => attr.tagName === 'description').innerHTML,
+          }, {
             name: 'properties.canonicalImage',
             value: [...item.children].find(attr => attr.tagName === 'image').innerHTML,
           }, {
