@@ -103,8 +103,7 @@ function upsertItem(item, {id, user}) {
 }
 
 function deleteItem({id, user}) {
-  const collection = getDb().collection(`users/${user.uid}/items`)
-  return collection.doc(id).delete()
+  return getDb().ref(`users/${user.uid}/items/${id}`).remove()
 }
  
 export default {

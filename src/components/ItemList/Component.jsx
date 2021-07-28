@@ -14,6 +14,11 @@ function Component(props) {
         const {properties, ownership = {}} = item
         return (
           <Link to={`/app/${item.id}/`} key={item.id} className="item-list__item item-card">
+            {ownership.favorite && (
+              <div className={cn('item-card__favorite')}>
+                Favorite
+              </div>
+            )}
             <div className="item-card__image">
               <div className="item-card__image-wrapper">
                 <div className="item-card__image-inner" style={{backgroundImage: `url("${properties.canonicalImage}")`}} />
@@ -55,11 +60,6 @@ function Component(props) {
             </div>
             <div className="item-card__ownership">
               <div className="item-card__ownership-wrapper">
-                {ownership.favorite && (
-                  <div key="favorite" className={cn('item-card__icon', 'item-card__favorite')}>
-                    Favorite
-                  </div>
-                )}
                 {ownership.ownIt && (
                   <div key="ownIt" className={cn('item-card__icon', 'item-card__owned')}>
                     Owned

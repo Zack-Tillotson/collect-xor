@@ -20,22 +20,17 @@ function useNameLookup(formName = 'properties.name') {
         .then(stringData => {
           const xmlData = new DOMParser().parseFromString(stringData, "application/xml")
 
-          const data = [...xmlData.documentElement.children].map(item => ({
+          const data = [...xmlData.documentElement.children].map(item => {
+            const nameEle = [...item.children].find(attr => attr.tagName === 'name')
+            const yearEle = [...item.children].find(attr => attr.tagName === 'yearpublished')
+            return {
             id: item.getAttribute('id'),
-            name: item.children[0].getAttribute('value'),
-            year: item.children[1].getAttribute('value'),
-          }))
+            name: nameEle && nameEle.getAttribute('value') || '',
+            year: yearEle && yearEle.getAttribute('value') || '',
+            }
+          })
 
           updateGames(data)
-
-          // const {title, publisher, image} = data.item_attributes
-          // const updates = [
-          //   {name: 'properties.name', value: title}, 
-          //   {name: 'properties.publisher', value: publisher}, 
-          //   {name: 'properties.canonicalImage', value: image},
-          // ]
-          
-          // dispatch(actions.formValuesUpdated(updates))
         })
         .catch(err => {})
   }

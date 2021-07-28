@@ -11,12 +11,14 @@
 }
 
 .item-card {
+  position: relative;
+
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;
-  grid-template:
+  grid-template-areas:
     "image prime-attrs"
-    "ownership ownership";
+    "image ownership";
   grid-gap: var(--pad-half);
   border-bottom: solid 1px var(--color-contrast-bg);
 
@@ -99,7 +101,7 @@
     position: relative;
     display: inline-block;
     max-width: 175px;
-    width: 35vw;
+    width: 25vw;
     height: 75px;
 
     background-color: #eee;
@@ -129,7 +131,7 @@
   }
 
   .item-card__ownership-wrapper {
-    display: flex;
+    display: inline-flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
 
@@ -148,14 +150,23 @@
       background: lightgreen;
     }
 
-    .item-card__favorite {
-      color: darkred;
-      background: pink;
-    }
-    
     .item-card__played {
       color: darkblue;
       background: lightblue;
     }
+  }
+
+  .item-card__favorite {
+    position: absolute;
+    right: var(--pad);
+    top: var(--pad);
+
+    padding: var(--pad-half);
+
+    font-weight: bold;
+    font-size: .7rem;
+    text-transform: uppercase;
+    color: darkred;
+    background: pink;
   }
 }
