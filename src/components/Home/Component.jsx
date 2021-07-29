@@ -27,7 +27,7 @@ function Component(props) {
     return auth.renderLoadingPage()
   }
 
-  if(!collection.meta.isInitialized) {
+  if(auth.isLoggedIn && !collection.meta.isInitialized) {
     return auth.renderLoadingPage() 
   }
 

@@ -15,7 +15,7 @@
 
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr;
   grid-template-areas:
     "image prime-attrs"
     "image ownership";
@@ -50,13 +50,19 @@
     .item-card__name {
       font-size: 1rem;
       text-overflow: ellipsis;
-      max-width: 100%;
+      max-width: 40vw;
       white-space: nowrap;
       overflow: hidden;
       
       @media(min-width: 800px) {
         font-size: 1.5rem;
+        max-width: 325px;
       }
+    }
+
+    .item-card__year {
+      color: var(--color-font-primary-offset);
+      font-size: .8rem;
     }
 
     .item-card__desc {
@@ -128,32 +134,12 @@
 
   .item-card__ownership {
     grid-area: ownership;
+
+    font-size: .75rem;
   }
 
-  .item-card__ownership-wrapper {
-    display: inline-flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-
-    .item-card__icon {
-      display: inline-block;
-
-      padding:  var(--pad-quart) var(--pad);
-      font-weight: bold;
-      font-size: .7rem;
-      text-transform: uppercase;
-      border-radius: 500px;
-    }
-
-    .item-card__owned {
-      color: darkgreen;
-      background: lightgreen;
-    }
-
-    .item-card__played {
-      color: darkblue;
-      background: lightblue;
-    }
+  .item-card__owned {
+    
   }
 
   .item-card__favorite {
@@ -161,12 +147,22 @@
     right: var(--pad);
     top: var(--pad);
 
-    padding: var(--pad-half);
+    padding: var(--pad-quart) var(--pad2);
 
     font-weight: bold;
-    font-size: .7rem;
+    font-size: .6rem;
     text-transform: uppercase;
     color: darkred;
-    background: pink;
+
+    &:before {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      transform: skew(30deg);
+      background: rgba(255, 0, 0, .2);
+    }
   }
 }

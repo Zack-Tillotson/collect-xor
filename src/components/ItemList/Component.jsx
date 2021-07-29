@@ -25,12 +25,12 @@ function Component(props) {
               </div>
             </div>
             <div className="item-card__primary-attrs">
-              <h3 className="item-card__name">
-                {properties.name}
-              </h3>
               <div className="item-card__year">
                 {properties.releaseDate}
               </div>
+              <h3 className="item-card__name">
+                {properties.name}
+              </h3>
               <div className="item-card__desc">
                 {properties.description}
               </div>
@@ -60,11 +60,10 @@ function Component(props) {
             </div>
             <div className="item-card__ownership">
               <div className="item-card__ownership-wrapper">
-                {ownership.ownIt && (
-                  <div key="ownIt" className={cn('item-card__icon', 'item-card__owned')}>
-                    Owned
-                  </div>
-                )}
+                <div key="ownIt" className={cn('item-card__icon', 'item-card__owned', {['item-card__owned--own-it']: ownership.ownIt})}>
+                  Owned {ownership.acquiredDate && `(${ownership.acquiredDate})`}
+                </div>
+                
                 {ownership.playedIt && (
                   <div key="playedIt" className={cn('item-card__icon', 'item-card__played')}>
                     Played
