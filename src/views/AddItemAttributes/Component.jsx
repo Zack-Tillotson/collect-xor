@@ -35,7 +35,8 @@ function Component(props) {
     return auth.renderLoadingPage() 
   }
 
-  const handleStartClick = event => {
+  const handleFormSubmit = event => {
+    event.preventDefault()
     updateStep('items')
     lookupNames()
   }
@@ -48,8 +49,10 @@ function Component(props) {
      <Page className="app-item-scan-barcode">
       <FormBreadcrumbs step={2} location={props.location} />
       <h1>Lookup Attributes</h1>
-      <Input formName="properties.name" />
-      <button className={cn('--button-like', step === 'items' ? '--primary' : '--hollow')} onClick={handleStartClick}>Lookup</button>
+      <form onSubmit={handleFormSubmit}>
+        <Input formName="properties.name" />
+        <button className={cn('--button-like', step === 'items' ? '--primary' : '--hollow')}>Lookup</button>
+      </form>
       {step === 'items' && games.length > 0 && (
         <div className="attributes-list">
           <h3>BoardGameGeek Games</h3>
@@ -63,10 +66,12 @@ function Component(props) {
           <h3>BoardGameGeek Attributes</h3>
           <Input formName="properties.name" />
           <Input formName="properties.releaseDate" />
-          <Input formName="properties.description" />
           <Input formName="properties.publisher" />
           <Input formName="properties.canonicalImage" />
           <Input formName="properties.designer" />
+          <Input formName="properties.description" />
+          <Input formName="properties.minPlayers" />
+          <Input formName="properties.maxPlayers" />
           <Link to="/app/add/review/" className="--button-like --primary">Next: Review</Link>
         </div>
       )}

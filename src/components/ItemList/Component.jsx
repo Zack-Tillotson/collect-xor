@@ -49,24 +49,35 @@ function Component(props) {
                 </span>
               </div>
               {properties.price && [
-                <div className="item-card__label">MSRP:</div>
+                <div key="label" className="item-card__label">MSRP:</div>
                 ,
-                <div className="item-card__publisher">
+                <div key="value" className="item-card__publisher">
                   <span className="item-card__inner">
                     {properties.price}
                   </span>
                 </div>
               ]}
+              {(properties.minPlayers || properties.maxPlayers) && ([
+                <div key="label" className="item-card__label">Player Count:</div>
+                ,
+                <div key="value" className="item-card__players">
+                  <span className="item-card__inner">
+                    {[properties.minPlayers, properties.maxPlayers].filter(val => !!val).join('-')}
+                  </span>
+                </div>
+              ])}
             </div>
             <div className="item-card__ownership">
               <div className="item-card__ownership-wrapper">
-                <div key="ownIt" className={cn('item-card__icon', 'item-card__owned', {['item-card__owned--own-it']: ownership.ownIt})}>
-                  Owned {ownership.acquiredDate && `(${ownership.acquiredDate})`}
-                </div>
+                {ownership.ownIt && (
+                  <div key="ownIt" className={cn('item-card__icon', 'item-card__owned', {['item-card__owned--own-it']: ownership.ownIt})}>
+                    <span className="ownership-icon ownership-icon--own">$</span> Owned {ownership.acquiredDate && `(${ownership.acquiredDate})`}
+                  </div>
+                )}
                 
                 {ownership.playedIt && (
                   <div key="playedIt" className={cn('item-card__icon', 'item-card__played')}>
-                    Played
+                    <span className="ownership-icon ownership-icon--play">♙</span> Played
                   </div>
                 )}
               </div>

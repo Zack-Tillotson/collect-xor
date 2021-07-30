@@ -5,6 +5,22 @@ import actions from 'state/actions'
 
 const formSelector = state => state.addNewItemForm
 
+function getSafeValue(item, getter, defaultValue = '') {
+  let value = defaultValue
+  try {
+    value = getter(item)
+  } catch (e) {}
+  return value
+}
+
+// lol bgg wut
+function cleanText(text) {
+  const ele = document.createElement('html')
+  ele.innerHTML = text
+  ele.innerHTML = ele.innerText
+  return ele.innerText
+}
+
 function useNameLookup(formName = 'properties.name') {
 
   const form = useSelector(formSelector)
@@ -24,9 +40,9 @@ function useNameLookup(formName = 'properties.name') {
             const nameEle = [...item.children].find(attr => attr.tagName === 'name')
             const yearEle = [...item.children].find(attr => attr.tagName === 'yearpublished')
             return {
-            id: item.getAttribute('id'),
-            name: nameEle && nameEle.getAttribute('value') || '',
-            year: yearEle && yearEle.getAttribute('value') || '',
+              id: item.getAttribute('id'),
+              name: nameEle && nameEle.getAttribute('value') || '',
+              year: yearEle && yearEle.getAttribute('value') || '',
             }
           })
 
@@ -42,24 +58,34 @@ function useNameLookup(formName = 'properties.name') {
         const xmlData = new DOMParser().parseFromString(stringData, "application/xml")
 
         const item = [...xmlData.documentElement.children].find(ele => ele.tagName === 'item')
+
+        const cleanDesc = cleanText(getSafeValue(item, item => [...item.children].find(attr => attr.tagName === 'description').innerHTML))
+        
+
         const updates = [{
             name: 'properties.name',
-            value: [...item.children].find(attr => attr.tagName === 'name' && attr.getAttribute('type') === 'primary').getAttribute('value'),
+            value: getSafeValue(item, item => [...item.children].find(attr => attr.tagName === 'name' && attr.getAttribute('type') === 'primary').getAttribute('value')),
           }, {
             name: 'properties.releaseDate',
-            value: [...item.children].find(attr => attr.tagName === 'yearpublished').getAttribute('value'),
+            value: getSafeValue(item, item => [...item.children].find(attr => attr.tagName === 'yearpublished').getAttribute('value')),
           }, {
             name: 'properties.description',
-            value: [...item.children].find(attr => attr.tagName === 'description').innerHTML,
+            value: cleanDesc,
           }, {
             name: 'properties.canonicalImage',
-            value: [...item.children].find(attr => attr.tagName === 'image').innerHTML,
+            value: getSafeValue(item, item => [...item.children].find(attr => attr.tagName === 'image').innerHTML),
           }, {
             name: 'properties.publisher',
-            value: [...item.children].find(attr => attr.tagName === 'link' && attr.getAttribute('type') === 'boardgamepublisher').getAttribute('value'),
+            value: getSafeValue(item, item => [...item.children].find(attr => attr.tagName === 'link' && attr.getAttribute('type') === 'boardgamepublisher').getAttribute('value')),
           }, {
             name: 'properties.designer',
-            value: [...item.children].filter(attr => attr.tagName === 'link' && attr.getAttribute('type') === 'boardgamedesigner').map(pub => pub.getAttribute('value')).join(', '),
+            value: getSafeValue(item, item => [...item.children].filter(attr => attr.tagName === 'link' && attr.getAttribute('type') === 'boardgamedesigner').map(pub => pub.getAttribute('value')).join(', ')),
+          }, {
+            name: 'properties.minPlayers',
+            value: getSafeValue(item, item => [...item.children].find(attr => attr.tagName === 'minplayers').getAttribute('value')),
+          }, {
+            name: 'properties.maxPlayers',
+            value: getSafeValue(item, item => [...item.children].find(attr => attr.tagName === 'maxplayers').getAttribute('value')),
           },
         ]
 

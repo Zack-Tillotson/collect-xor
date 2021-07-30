@@ -135,11 +135,7 @@
   .item-card__ownership {
     grid-area: ownership;
 
-    font-size: .75rem;
-  }
-
-  .item-card__owned {
-    
+    font-size: .9rem;
   }
 
   .item-card__favorite {
@@ -163,6 +159,21 @@
       bottom: 0;
       transform: skew(30deg);
       background: rgba(255, 0, 0, .2);
+    }
+  }
+
+  .ownership-icon {
+    display: inline-block;
+    width: 16px;
+    text-align: center;
+    font-weight: bold;
+
+    &--own {
+      color: var(--color-secondary);
+    }
+
+    &--play {
+      color: var(--color-primary);
     }
   }
 }
