@@ -14,6 +14,7 @@ function Component(props) {
   const {
     className,
     formName,
+    id,
     shape,
     value,
     onUpdate,
@@ -26,7 +27,7 @@ function Component(props) {
   return (
     <div className={cn('attributes__block', 'primary-attributes__name', className)}>
       <label htmlFor={`${formName}-input`} className="attributes__label">{shape.copy}</label>
-      <input id={`${formName}-input`} type="text" value={value || ''} onChange={handleChange} className="attributes__input" />
+      <input id={id || `${formName}-input`} type="text" value={value || ''} onChange={handleChange} className="attributes__input" />
     </div>
   )
 }

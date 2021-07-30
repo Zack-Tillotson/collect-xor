@@ -69,13 +69,13 @@ function Component(props) {
             </div>
             <div className="item-card__ownership">
               <div className="item-card__ownership-wrapper">
-                {ownership.ownIt && (
-                  <div key="ownIt" className={cn('item-card__icon', 'item-card__owned', {['item-card__owned--own-it']: ownership.ownIt})}>
+                {ownership.owned && (
+                  <div key="ownIt" className={cn('item-card__icon', 'item-card__owned', {['item-card__owned--own-it']: ownership.owned})}>
                     <span className="ownership-icon ownership-icon--own">$</span> Owned {ownership.acquiredDate && `(${ownership.acquiredDate})`}
                   </div>
                 )}
                 
-                {ownership.playedIt && (
+                {ownership.played && (
                   <div key="playedIt" className={cn('item-card__icon', 'item-card__played')}>
                     <span className="ownership-icon ownership-icon--play">♙</span> Played
                   </div>

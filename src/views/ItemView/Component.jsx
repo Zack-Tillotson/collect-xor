@@ -66,7 +66,7 @@ function Component(props) {
       </div>
       <div className="item-view__ownership">
         <div className="item-view__ownership-inner">
-          <button className={cn('item-view__icon --button-like --hollow', {'--primary': ownership.ownIt})} onClick={handleOwnershipClick('ownIt')}>
+          <button className={cn('item-view__icon --button-like --hollow', {'--primary': ownership.owned})} onClick={handleOwnershipClick('owned')}>
             <div className="item-view__icon-img">✓</div>
             <div className="item-view__icon-label">Owned</div>
           </button>
@@ -74,7 +74,7 @@ function Component(props) {
             <div className={'item-view__icon-img'}>♥</div>
             <div className="item-view__icon-label">Favorite</div>
           </button>
-          <button className={cn('item-view__icon --button-like --hollow', {'--primary': ownership.playedIt})} onClick={handleOwnershipClick('playedIt')}>
+          <button className={cn('item-view__icon --button-like --hollow', {'--primary': ownership.played})} onClick={handleOwnershipClick('played')}>
             <div className={'item-view__icon-img'}>♟</div>
             <div className="item-view__icon-label">Played</div>
           </button  >

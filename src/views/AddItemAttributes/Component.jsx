@@ -45,12 +45,16 @@ function Component(props) {
     lookupAttributes(item)
   }
 
+  const bggProperties = Object.keys(collection.shape.properties)
+    .filter(attr => collection.shape.properties[attr].bggName)
+    .sort((a, b) => ((collection.shape.properties[a].order || 999) - (collection.shape.properties[b].order || 999)))
+
   return (
      <Page className="app-item-scan-barcode">
       <FormBreadcrumbs step={2} location={props.location} />
       <h1>Lookup Attributes</h1>
       <form onSubmit={handleFormSubmit}>
-        <Input formName="properties.name" />
+        <Input formName="properties.name" id="search-input" />
         <button className={cn('--button-like', step === 'items' ? '--primary' : '--hollow')}>Lookup</button>
       </form>
       {step === 'items' && games.length > 0 && (
@@ -64,14 +68,9 @@ function Component(props) {
       {step === 'attributes' && (
         <div className="attributes-list">
           <h3>BoardGameGeek Attributes</h3>
-          <Input formName="properties.name" />
-          <Input formName="properties.releaseDate" />
-          <Input formName="properties.publisher" />
-          <Input formName="properties.canonicalImage" />
-          <Input formName="properties.designer" />
-          <Input formName="properties.description" />
-          <Input formName="properties.minPlayers" />
-          <Input formName="properties.maxPlayers" />
+          {bggProperties.map(prop => (
+            <Input key={prop} formName={`properties.${prop}`} />
+          ))}
           <Link to="/app/add/review/" className="--button-like --primary">Next: Review</Link>
         </div>
       )}
