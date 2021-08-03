@@ -4,10 +4,8 @@
 
   padding: var(--pad-quart) var(--pad2);
 
-  font-weight: bold;
-  font-size: .6rem;
-  text-transform: uppercase;
-  color: var(--color-font-primary-offset);
+  font-size: .8rem;
+  font-weight: bold;  
   
   &:before {
     content: ' ';
@@ -23,7 +21,8 @@
 
   &--is-favorite {
     color: var(--color-red-offset);
-
+    text-transform: uppercase;
+    
     &:before {
       background: var(--color-red);
     }
