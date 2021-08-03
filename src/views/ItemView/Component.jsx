@@ -54,7 +54,9 @@ function Component(props) {
         <div className="item-view__favorite">
           <ItemFavorite isFavorite={ownership.favorite} onClick={handleOwnershipClick('favorite')} />
         </div>
-        <div className="item-view__image" style={{backgroundImage: `url("${properties.canonicalImage}")`}} />
+        <div className="item-view__image">
+          <div className="item-view__image-inner" style={{backgroundImage: `url("${properties.canonicalImage}")`}} />
+        </div>
         <div className="item-view__text">
           <div className="item-view__label">Name</div>
           <Link to={`/app/${id}/`} className="item-list__item">
@@ -71,14 +73,16 @@ function Component(props) {
         </div>
         <div className="item-view__ownership">
           <div className="item-view__ownership-inner">
-            <button className={cn('item-view__icon --button-like --hollow', {'--primary': ownership.owned})} onClick={handleOwnershipClick('owned')}>
-              <div className="item-view__icon-img">✓</div>
-              <div className="item-view__icon-label">Owned</div>
-            </button>
-            <button className={cn('item-view__icon --button-like --hollow', {'--primary': ownership.played})} onClick={handleOwnershipClick('played')}>
-              <div className={'item-view__icon-img'}>♟</div>
-              <div className="item-view__icon-label">Played</div>
-            </button  >
+          <div className={cn('item-view__stat')}>
+              <h3 className="item-view__stat-label">{ownership.owned ? 'Owned ' : 'Not owned'}</h3>
+              <div className="item-view__stat-img item-view__stat-img--owned">✓</div>
+              <Link to="TODO" className="item-view__stat-cta --button-like --primary --tight">{ownership.owned ? 'Remove' : 'I bought this'}</Link>
+            </div>
+            <div className={cn('item-view__stat')}>
+              <h3 className="item-view__stat-label">{ownership.played ? 'Plays' : 'Not Played'}</h3>
+              <div className="item-view__stat-img item-view__stat-img--played">♟</div>
+              <Link to="TODO" className="item-view__stat-cta --button-like --secondary --tight">I played this</Link>
+            </div>
           </div>
         </div>
         <div className="item-view__secondary">

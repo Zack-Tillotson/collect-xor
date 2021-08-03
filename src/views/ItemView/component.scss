@@ -28,10 +28,16 @@
   .item-view__favorite {
     grid-area: favorite;
     text-align: right;
+    padding-right: var(--pad);
   }
 
   .item-view__image {
     grid-area: image;
+    background: var(--color-bg-offset-light);
+    padding: var(--pad);
+  }
+
+  .item-view__image-inner {
     min-height: 25vh;
     background: rgba(0,0,0,0) center center no-repeat no-repeat;
     background-size: contain;
@@ -41,12 +47,14 @@
     grid-area: primary;
   }
 
-  .item-view__ownership {
-    grid-area: ownership;
+  .item-view__name {
+    color: var(--color-font-primary);
   }
 
   .item-view__secondary {
     grid-area: secondary;
+
+    border-top: solid 1px var(--color-bg-offset);
   }
 
   .item-view__label {
@@ -56,26 +64,46 @@
     color: var(--color-font-primary-offset);
   }
 
+  .item-view__ownership {
+    grid-area: ownership;
+
+    border-top: var(--border-1);
+  }
+
   .item-view__ownership-inner {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-gap: var(--pad-half);
-    padding: var(--pad-half);
+    padding: var(--pad);
+    padding-bottom: 0;
     
     text-align: center;
   }
     
-  .item-view__icon {
-    padding:  var(--pad-quart);
+  .item-view__stat {
+    
+  }
+
+  .item-view__stat-label {
+    font-size: .75rem;
+    text-transform: uppercase;
+  }
+
+  .item-view__stat-img {
+    font-size:  2rem;
+    line-height:  2rem;
     font-weight: bold;
+
+    &--owned {
+      color: var(--color-primary);
+    }
+
+    &--played {
+      color: var(--color-secondary);
+    }
   }
 
-  .item-view__icon-img {
-    font-size:  1.5rem;
-    line-height:  1.5rem;
-  }
-
-  .item-view__icon-label {
+  .item-view__stat-cta {
     font-size: .75rem;
   }
 

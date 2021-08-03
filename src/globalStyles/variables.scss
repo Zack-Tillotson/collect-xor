@@ -9,7 +9,7 @@
   --brand-secondary: #2DB34A;
   --brand-secondary-offset: #2ef159;
   --brand-white: #ffffff;
-  --brand-grey-1: #ddd;
+  --brand-grey-1: #eee;
   --brand-grey-2: #999;
   --brand-grey-3: #666;
   --brand-grey-4: #42444E;
@@ -30,6 +30,7 @@
   --color-font-secondary: var(--brand-secondary);
   --color-bg: var(--brand-white);
   --color-bg-offset: var(--brand-grey-3);
+  --color-bg-offset-light: var(--brand-grey-1);
   --color-contrast-primary: var(--brand-primary-offset);
   --color-contrast-primary-offset: var(--brand-primary);
   --color-contrast-secondary: var(--brand-secondary-offset);
@@ -51,6 +52,7 @@
     --color-font-secondary: var(--brand-secondary);
     --color-bg: var(--brand-grey-4);
     --color-bg-offset: var(--brand-grey-2);
+    --color-bg-offset-light: var(--brand-grey-3);
     --color-contrast-primary: var(--brand-primary);
     --color-contrast-primary-offset: var(--brand-primary-offset);
     --color-contrast-secondary: var(--brand-secondary);
@@ -76,4 +78,8 @@
   --font-title: 'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   --font-content: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
 
+  /* Borders */
+  --border-1: solid 1px var(--color-bg-offset);
+  --border-2: solid 2px var(--color-bg-offset);
+  --border-4: solid 1px var(--color-bg-offset);
 }
