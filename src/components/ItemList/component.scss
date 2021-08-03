@@ -111,6 +111,7 @@
     height: 75px;
 
     background: var(--color-bg-offset-light);
+    background: radial-gradient(circle, var(--color-bg-offset) 15%, var(--color-bg-offset-light) 85%);
     
     padding: 0 var(--pad-half);
 

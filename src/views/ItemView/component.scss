@@ -34,6 +34,7 @@
   .item-view__image {
     grid-area: image;
     background: var(--color-bg-offset-light);
+    background: radial-gradient(circle, var(--color-bg-offset) 15%, var(--color-bg-offset-light) 85%);
     padding: var(--pad);
   }
 
