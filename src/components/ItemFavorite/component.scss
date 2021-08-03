@@ -1,0 +1,31 @@
+.item-favorite {
+  position: relative;
+  display: inline-block;
+
+  padding: var(--pad-quart) var(--pad2);
+
+  font-weight: bold;
+  font-size: .6rem;
+  text-transform: uppercase;
+  color: var(--color-font-primary-offset);
+  
+  &:before {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: .2;
+    transform: skew(30deg);
+    background: var(--color-bg-offset);
+  }
+
+  &--is-favorite {
+    color: var(--color-red-offset);
+
+    &:before {
+      background: var(--color-red);
+    }
+  }
+}

@@ -1,6 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import cn from 'classnames'
+
+import ItemFavorite from 'components/ItemFavorite'
+
 import './component.scss'
 
 function Component(props) {
@@ -15,9 +18,7 @@ function Component(props) {
         return (
           <Link to={`/app/${item.id}/`} key={item.id} className="item-list__item item-card">
             {ownership.favorite && (
-              <div className={cn('item-card__favorite')}>
-                Favorite
-              </div>
+              <ItemFavorite isFavorite={true} className="item-card__favorite" />
             )}
             <div className="item-card__image">
               <div className="item-card__image-wrapper">

@@ -1,23 +1,34 @@
 .item-view {
+  position: relative;
+
   display: grid;
   grid-template-areas:
-    "primary image"
-    "ownership ownership"
-    "secondary secondary"
-    "controls controls";
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto 1fr auto;
-
+    "favorite"
+    "image"
+    "primary"
+    "ownership"
+    "secondary"
+    "controls";
+  grid-template-columns: 1fr;
+  
   @media(min-width: 800px) {
     grid-template-areas:
-      "image primary"
-      "image ownership"
+      "primary favorite"
+      "primary image"
+      "ownership image"
       "secondary secondary"
       "controls controls";
+      grid-template-columns: 1fr 2fr;
+      grid-template-rows: auto auto auto 1fr auto auto auto;
   }
 
   grid-gap: var(--pad);
   min-height: 90vh;
+
+  .item-view__favorite {
+    grid-area: favorite;
+    text-align: right;
+  }
 
   .item-view__image {
     grid-area: image;
@@ -38,17 +49,11 @@
     grid-area: secondary;
   }
 
-  .item-view__controls {
-    grid-area: controls;
-  }
-
   .item-view__label {
     margin-top: var(--pad);
+    font-size: .75rem;
+    font-weight: bold;
     color: var(--color-font-primary-offset);
-  }
-
-  
-  .item-view__ownership {
   }
 
   .item-view__ownership-inner {
@@ -75,17 +80,31 @@
   }
 
   .item-view__secondary {
-    h3 {
-      font-size: 1.5rem;
-    }
+    position: relative;
+  }
 
-    .item-view__label {
-      font-size: .75rem;
-      font-weight: bold;
+  .item-view__secondary-expander {
+    position: absolute;
+    right: 0;
+    top: var(--pad-half);
+  }
+
+  .item-view__value {
+    &--capped {
+      max-width: calc(100vw - 4 * var(--pad));
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
   .item-view__controls {
-    text-align: right;
+    grid-area: controls;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    border-top: solid 1px var(--color-contrast-bg);
   }
 }

@@ -20,7 +20,7 @@
     "image prime-attrs"
     "image ownership";
   grid-gap: var(--pad-half);
-  border-bottom: solid 1px var(--color-contrast-bg);
+  border-bottom: solid 1px var(--color-bg-offset);
 
   padding: var(--pad);
   
@@ -34,7 +34,7 @@
   }
   
   &:hover {
-    background: white;
+    background: var(--color-bg);
     box-shadow: 1px 1px 6px var(--brand-primary);
   }
 
@@ -142,24 +142,6 @@
     position: absolute;
     right: var(--pad);
     top: var(--pad);
-
-    padding: var(--pad-quart) var(--pad2);
-
-    font-weight: bold;
-    font-size: .6rem;
-    text-transform: uppercase;
-    color: darkred;
-
-    &:before {
-      content: ' ';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      transform: skew(30deg);
-      background: rgba(255, 0, 0, .2);
-    }
   }
 
   .ownership-icon {

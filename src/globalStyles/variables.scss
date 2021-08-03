@@ -14,6 +14,10 @@
   --brand-grey-3: #666;
   --brand-grey-4: #42444E;
   --brand-black: #333;
+  --brand-red-1: #ff7373;
+  --brand-red-2: #ff0000;
+  --brand-red-3: #b00000;
+  --brand-red-4: #530000;
 
   /* color scheme (default light) */
 
@@ -25,6 +29,7 @@
   --color-font-primary-offset: var(--brand-grey-3);
   --color-font-secondary: var(--brand-secondary);
   --color-bg: var(--brand-white);
+  --color-bg-offset: var(--brand-grey-3);
   --color-contrast-primary: var(--brand-primary-offset);
   --color-contrast-primary-offset: var(--brand-primary);
   --color-contrast-secondary: var(--brand-secondary-offset);
@@ -33,6 +38,8 @@
   --color-contrast-font-primary-offset: var(--brand-grey-2);
   --color-contrast-font-secondary: var(--brand-secondary);
   --color-contrast-bg: var(--brand-grey-4);
+  --color-red: var(--brand-red-2);
+  --color-red-offset: var(--brand-red-4);
 
   @media (prefers-color-scheme: dark) {
     --color-primary: var(--brand-primary-offset);
@@ -43,6 +50,7 @@
     --color-font-primary-offset: var(--brand-grey-2);
     --color-font-secondary: var(--brand-secondary);
     --color-bg: var(--brand-grey-4);
+    --color-bg-offset: var(--brand-grey-2);
     --color-contrast-primary: var(--brand-primary);
     --color-contrast-primary-offset: var(--brand-primary-offset);
     --color-contrast-secondary: var(--brand-secondary);
@@ -51,6 +59,8 @@
     --color-contrast-font-primary-offset: var(--brand-grey-3);
     --color-contrast-font-secondary: var(--brand-secondary);
     --color-contrast-bg: var(--brand-white);
+    --color-red: var(--brand-red-1);
+    --color-red-offset: var(--brand-red-3);
   }
   
   /* layout */
