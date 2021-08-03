@@ -21,7 +21,7 @@ function Component(props) {
   const collection = useCollection()
 
   const dispatch = useDispatch()
-  const [isAttrsExpanded, updateIsAttrsExpanded] = useState(false)
+  const [expandedAttrs, updateExpandedAttrs] = useState({})
 
   
   if(!auth.isInitialized) {
@@ -46,7 +46,7 @@ function Component(props) {
 
   const handleOwnershipClick = attr => event => dispatch(actions.itemUpdated({id: itemId, ownership: {[attr]: !ownership[attr]}}))
   const handleDeleteClick = event => window.confirm('Confirm delete? This can not be undone.') && dispatch(actions.itemDelete(itemId))
-  const handleExpandAttrsClicked = event => updateIsAttrsExpanded(!isAttrsExpanded)
+  const handleExpandAttrsClicked = attr => event => updateExpandedAttrs({[attr]: !expandedAttrs[attr]})
   
   return (
     <Page className="app-item-view">
@@ -83,9 +83,6 @@ function Component(props) {
         </div>
         <div className="item-view__secondary">
           <h2>Attributes</h2>
-          <button className="item-view__secondary-expander --button-like --minimal" onClick={handleExpandAttrsClicked}>
-            {isAttrsExpanded ? 'Collapse' : 'Expand'}
-          </button>
           {Object.keys(collection.shape.properties).reduce((soFar, key) => {
             const attribute = collection.shape.properties[key]
 
@@ -98,7 +95,7 @@ function Component(props) {
                 {attribute.copy}
               </div>
             ,
-              <div key={`${key}-value`} className={cn('item-view__value', {['item-view__value--capped']: !isAttrsExpanded})}>
+              <div key={`${key}-value`} className={cn('item-view__value', {['item-view__value--capped']: !expandedAttrs[key] && value.length > 75})} onClick={handleExpandAttrsClicked(key)}>
                 {value}
               </div>
             ]
