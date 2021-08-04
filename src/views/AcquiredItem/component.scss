@@ -1,0 +1,33 @@
+.app-aquired-item {
+  display: grid;
+  grid-template-areas:
+    "image"
+    "primary"
+    "form";
+  grid-template-columns: 1fr;
+  grid-gap: var(--pad);
+  
+  @media(min-width: 600px) {
+    & {
+      grid-template-areas:
+        "primary image"
+        "form form";
+        grid-template-columns: 1fr 2fr;
+    }
+  }
+
+  .app-aquired-item__image {
+    grid-area: image;
+  }
+
+  .app-aquired-item__text {
+    grid-area: primary;
+  }
+
+  .app-aquired-item__form {
+    grid-area: form;
+
+    border-top: var(--border-1);
+  }
+  
+}

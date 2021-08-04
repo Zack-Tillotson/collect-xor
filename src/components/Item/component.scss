@@ -11,20 +11,21 @@
     "controls";
   grid-template-columns: 1fr;
   
-  @media(min-width: 800px) {
-    grid-template-areas:
-      "primary favorite"
-      "primary image"
-      "ownership image"
-      "secondary secondary"
-      "controls controls";
-      grid-template-columns: 1fr 2fr;
-      grid-template-rows: auto auto auto 1fr auto auto auto;
+  @media(min-width: 600px) {
+    & {
+      grid-template-areas:
+        "primary favorite"
+        "primary image"
+        "ownership image"
+        "secondary secondary"
+        "controls controls";
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: auto auto auto 1fr auto auto auto;
+    }
   }
 
   grid-gap: var(--pad);
-  min-height: 90vh;
-
+  
   .item-view__favorite {
     grid-area: favorite;
     text-align: right;
@@ -33,23 +34,10 @@
 
   .item-view__image {
     grid-area: image;
-    background: var(--color-bg-offset-light);
-    background: radial-gradient(circle, var(--color-bg-offset) 15%, var(--color-bg-offset-light) 85%);
-    padding: var(--pad);
-  }
-
-  .item-view__image-inner {
-    min-height: 25vh;
-    background: rgba(0,0,0,0) center center no-repeat no-repeat;
-    background-size: contain;
   }
 
   .item-view__text {
     grid-area: primary;
-  }
-
-  .item-view__name {
-    color: var(--color-font-primary);
   }
 
   .item-view__secondary {
@@ -101,6 +89,10 @@
 
     &--played {
       color: var(--color-secondary);
+    }
+
+    &--inactive {
+      color: var(--color-font-primary);
     }
   }
 

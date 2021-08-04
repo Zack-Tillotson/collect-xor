@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import actions from 'state/actions'
 
-const formSelector = state => state.addNewItemForm
+import formSelector from 'state/selectors/form'
 
 function getSafeValue(item, getter, defaultValue = '') {
   let value = defaultValue

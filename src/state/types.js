@@ -1,8 +1,8 @@
 export default {
-  formInitialized: 'addNewItemForm/INITIALIZED',
-  formValuesUpdated: 'addNewItemForm/VALUE_UPDATED',
-  formOwnershipUpdated: 'addNewItemForm/OWNERSHIP_UPDATED',
-  formSubmittted: 'addNewItemForm/SUBMITTED',
+  formInitialized: 'form/INITIALIZED',
+  formValuesUpdated: 'form/VALUE_UPDATED',
+  formOwnershipUpdated: 'form/OWNERSHIP_UPDATED',
+  formSubmittted: 'form/SUBMITTED',
   itemUpdated: 'item/UPDATED',
   itemDelete: 'item/DELETE',
 }

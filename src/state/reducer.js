@@ -1,13 +1,13 @@
 import {combineReducers} from 'redux';
 
 import collection from '../data/collection/state/reducer'
-import addNewItemForm from './reducers/addNewItemForm'
+import form from './reducers/form'
 
 const rootReducer = combineReducers({
   data: combineReducers({
     collection,
   }),
-  addNewItemForm,
+  form,
 });
 
 export default rootReducer;

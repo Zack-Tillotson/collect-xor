@@ -4,10 +4,6 @@
 
   grid-template-columns: repeat(1, 1fr);
   grid-gap: var(--pad2);
-
-  @media(min-width: 800px) {
-    
-  }
 }
 
 .item-card {
@@ -111,8 +107,8 @@
     height: 75px;
 
     background: var(--color-bg-offset-light);
-    background: radial-gradient(circle, var(--color-bg-offset) 15%, var(--color-bg-offset-light) 85%);
-    
+    background: radial-gradient(ellipse at top, var(--color-bg-offset-light), transparent), radial-gradient(ellipse at bottom, var(--color-bg-offset), transparent);
+
     padding: 0 var(--pad-half);
 
     @media(min-width: 800px) {

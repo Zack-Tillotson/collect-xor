@@ -1,0 +1,16 @@
+.item-header__image {
+  background: var(--color-bg-offset-light);
+  background: radial-gradient(ellipse at top, var(--color-bg-offset-light), transparent), radial-gradient(ellipse at bottom, var(--color-bg-offset), transparent);
+
+  padding: var(--pad);
+}
+
+.item-header__image-inner {
+  min-height: 200px;
+  background: rgba(0,0,0,0) center center no-repeat no-repeat;
+  background-size: contain;
+}
+
+.item-header__name {
+  color: var(--color-font-primary);
+}

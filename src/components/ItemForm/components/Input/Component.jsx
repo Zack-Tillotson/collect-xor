@@ -11,7 +11,7 @@ import Image from './Image';
 import Bool from './Bool';
 import Text from './Text'
 
-const formSelector = state => state.addNewItemForm
+import formSelector from 'state/selectors/form'
 
 function Component(props) {
   const {
@@ -24,7 +24,7 @@ function Component(props) {
   const dispatch = useDispatch()
 
   const shape = formName.split('.').reduce((shape, path) => shape[path], collection.shape)
-  const value = formName.split('.').reduce((value, path) => value[path], form)
+  const value = formName.split('.').reduce((value = {}, path) => value[path], form)
 
   const onUpdate = value => dispatch(actions.formValuesUpdated({name: formName, value}))
 
