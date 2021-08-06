@@ -1,15 +1,21 @@
 .scan-barcode {
+  display: grid;
+
+  text-align: center;
+
+  @media(max-width: 800px) and (orientation: landscape) {
+    grid-template-columns: 1fr 2fr;
+  }
 
   .scan-barcode__scan {
-    min-height: 150px;
-    max-height: 50vh;
-    max-width: 75vw;
-
     margin: 0 auto;
     
     cursor: pointer;
 
     &--closed {
+      width: 150px;
+      height: 150px;
+      max-height: 30vh;
       background: url('https://firebasestorage.googleapis.com/v0/b/bgshelf.appspot.com/o/barcode.png?alt=media&token=bb2857fe-61f9-43a7-b252-7042c1feb3a6') center center no-repeat no-repeat;
       background-size: contain;
     }

@@ -31,16 +31,18 @@ function Component(props) {
           <div id="image-viewport" />
         </div>
       )}
-      {isScanOpen && (<div className="barcode-scan__feedback">{status} {status === STATUS.scanning && `${percentLoaded}%`}</div>)}
-      {isScanOpen && (<button onClick={cancelScan}>Cancel</button>)}
-      {status === STATUS.default && (<p className="scan-barcode__helper">Hold the barcode up to the camera - make sure you've allowed this app to use your camera!</p>)}
-      {status === STATUS.complete && (
-        <div className="scan-barcode__complete-controls">
-          <h3>{status}</h3>
-          <Input formName="id" showLink={false} />
-          <Link to="/app/add/attributes/" className="--button-like --primary">Next: Attributes</Link>
-        </div>
-      )}
+      <div>
+        {isScanOpen && (<div className="barcode-scan__feedback">{status} {status === STATUS.scanning && `${percentLoaded}%`}</div>)}
+        {isScanOpen && (<button onClick={cancelScan}>Cancel</button>)}
+        {status === STATUS.default && (<p className="scan-barcode__helper">Hold the barcode up to the camera - make sure you've allowed this app to use your camera!</p>)}
+        {status === STATUS.complete && (
+          <div className="scan-barcode__complete-controls">
+            <h3>{status}</h3>
+            <Input formName="id" showLink={false} />
+            <Link to="/app/add/attributes/" className="--button-like --primary">Next: Attributes</Link>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

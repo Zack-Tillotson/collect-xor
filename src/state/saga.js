@@ -15,7 +15,7 @@ import formSelector from 'state/selectors/form'
 const formCacheName = 'item-form'
 
 function* handleFormSubmitted(action) {
-  const {id, properties, ownership} = yield(select(formSelector))
+  const {id, properties = {}, ownership = {}} = yield(select(formSelector))
   const {user} = yield call(getCurrentAuthData)
   const result = yield call(collection.upsertItem, {properties, ownership}, {id, user})
   

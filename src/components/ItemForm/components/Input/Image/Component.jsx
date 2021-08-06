@@ -10,8 +10,6 @@ import './component.scss'
 
 import useImageUpload from './useImageUpload'
 
-const formSelector = state => state.addNewItemForm
-
 function Component(props) {
   const {
     className,
@@ -20,10 +18,6 @@ function Component(props) {
     value,
     onUpdate,
   } = props
-  const collection = useCollection()
-
-  const {properties: values, useBarcodeLookup} = useSelector(formSelector)
-  const dispatch = useDispatch()
 
   const [isImageInput, updateIsImageInput] = useState(!value)
 
@@ -41,7 +35,7 @@ function Component(props) {
   const handleImageInputDoneClick = event => updateIsImageInput(false)
 
   return (
-    <div className={cn('attributes__block', 'primary-attributes__image')}>
+    <div className={cn('attributes__block', 'primary-attributes__image', className)}>
       {!isImageInput && <img src={value} className="attributes__image-pic" onClick={handleImageClick} />}
       {isImageInput && [
         <label htmlFor={`image-input__${formName}`} key="1" className="attributes__label">{shape.copy}</label>,

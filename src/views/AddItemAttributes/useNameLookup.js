@@ -27,7 +27,7 @@ function useNameLookup(formName = 'properties.name') {
   const dispatch = useDispatch()
   const [games, updateGames] = useState([])
 
-  const name = formName.split('.').reduce((value, path) => value[path], form)
+  const name = formName.split('.').reduce((value = {}, path) => value[path], form)
 
   const lookupNames = () => {
   
