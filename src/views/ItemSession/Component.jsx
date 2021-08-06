@@ -15,7 +15,7 @@ import Input from 'components/ItemForm/components/Input'
 
 import './component.scss'
 
-const baseCn = 'app-aquired-item'
+const baseCn = 'app-session-item'
 
 function Component(props) {
 
@@ -44,16 +44,17 @@ function Component(props) {
   }
 
   const handleFormSubmit = event => {
-    dispatch(actions.formSubmittted('purchase'))
+    event.preventDefault()
+    dispatch(actions.formSubmittted('session'))
   }
 
   return (
     <Page className={baseCn}>
       <ItemHeader item={item} shape={collection.shape} className={`${baseCn}__header`} displayOwnership={false} />
       <form onSubmit={handleFormSubmit} className={`${baseCn}__form`}>
-        <Input formName="purchase.properties.dateAcquired" />
-        <Input formName="purchase.properties.price" />
-        <Input formName="purchase.properties.note" />
+        <Input formName="session.properties.date" />
+        <Input formName="session.properties.players" />
+        <Input formName="session.properties.note" />
         <button className="--button-like --primary">Submit</button>
       </form>
     </Page>

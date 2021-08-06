@@ -13,8 +13,8 @@ import AppAddItemBarcode from 'views/AddItemBarcode';
 import AppAddItemAttributes from 'views/AddItemAttributes';
 import AppAddItemReview from 'views/AddItemReview';
 import AppItem from 'views/Item';
-import AppAcquiredItem from 'views/AcquiredItem';
-import AppPlayedItem from 'views/PlayedItem';
+import AppAcquiredItem from 'views/ItemAcquired';
+import AppPlayedItem from 'views/ItemSession';
 import FileNotFound from 'components/FileNotFound';
 
 import useAuth from 'data/auth/useAuth'
@@ -38,7 +38,7 @@ function App({store}) {
           <Route path="/app/add/" component={FileNotFound} />
           <Route path="/app/:itemId/edit/" exact component={AppEditItem} />
           <Route path="/app/:itemId/acquired" exact component={AppAcquiredItem} />
-          <Route path="/app/:itemId/played" exact component={AppPlayedItem} />
+          <Route path="/app/:itemId/session" exact component={AppPlayedItem} />
           <Route path="/app/:itemId/" exact component={AppItem} />
           <Route path="/app/" exact component={AppHome} />
           <Route path="/" exact component={Home} />

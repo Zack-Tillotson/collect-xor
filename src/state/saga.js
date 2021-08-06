@@ -35,6 +35,15 @@ function* handleFormSubmitted(action) {
       window.hackHistory.push(`/app/${id}/`)
       return true
     }
+    case 'session': {
+      const id = window.hackHistory.location.pathname.split('/')[2] // ugh
+      const {session = {}} = yield(select(formSelector))
+      const {user} = yield call(getCurrentAuthData)
+      const result = yield call(collection.upsertSession, session, {id, user})
+      
+      window.hackHistory.push(`/app/${id}/`)
+      return true
+    }
     default: throw new Error('Form type not supported - ' + formType)
   }
 }

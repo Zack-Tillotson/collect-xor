@@ -71,7 +71,8 @@ function initialize(store, collectionType) {
               const itemsObj = snapshot.val() || {}
               const items = Object.keys(itemsObj).map(id => {
                 const purchases = Object.keys(itemsObj[id].purchases || {}).reduce((purchases, key) => [...purchases, {id: key, ...itemsObj[id].purchases[key]}], [])
-                return {...itemsObj[id], id, purchases}
+                const sessions = Object.keys(itemsObj[id].sessions || {}).reduce((sessions, key) => [...sessions, {id: key, ...itemsObj[id].sessions[key]}], [])
+                return {...itemsObj[id], id, purchases, sessions}
               })
               getStore().dispatch(actions.dataLoaded({id: 'items', data: items}))
               resolve(items)
@@ -105,14 +106,30 @@ function upsertItem(item, {id, user}) {
   }
 }
 
-function upsertPurchase(purchase, {id, user}) {
+function upsertPurchase(data, {id, user}) {
+  const {id: purchaseId, ...purchase} = data
   const purchases = getDb().ref(`users/${user.uid}/items/${id}/purchases`)
-  if(purchase.id) {
-    purchases.child(purchase.id).update(purchase)
-    return id
+  purchase.dateAdded = new Date().toString()
+  if(purchaseId) {
+    purchases.child(purchaseId).update(purchase)
+    return purchaseId
   } else {
     const key = purchases.push().key
     purchases.update({[key]: purchase})
+    return key
+  }
+}
+
+function upsertSession(data, {id, user}) {
+  const {id: sessionId, ...session} = data
+  session.dateAdded = new Date().toString()
+  const sessions = getDb().ref(`users/${user.uid}/items/${id}/sessions`)
+  if(sessionId) {
+    sessions.child(sessionId).update(session)
+    return sessionId
+  } else {
+    const key = sessions.push().key
+    sessions.update({[key]: session})
     return key
   }
 }
@@ -129,5 +146,7 @@ export default {
 
   upsertItem,
   upsertPurchase,
+  upsertSession,
+
   deleteItem,
 }

@@ -15,9 +15,10 @@ function Component(props) {
   const {item, imageClassName, textClassName, displayOwnership = true} = props
   const dispatch = useDispatch()
 
-  const {id, properties, ownership = {}, purchases} = item
+  const {id, properties, ownership = {}, purchases, sessions} = item
 
   const handleFavoriteClick = event => dispatch(actions.itemUpdated({id, ownership: {favorite: !ownership.favorite}}))
+  const handleFormClick = event => dispatch(actions.formInitialized())
 
   const acquireDate = purchases.length > 0 && purchases[0].properties.dateAcquired;
 
@@ -32,12 +33,16 @@ function Component(props) {
           <div className={cn('item-header__stat')}>
               <h3 className="item-header__stat-label">{acquireDate ? 'Owned ' + acquireDate : 'Not owned'}</h3>
               <div className={cn('item-header__stat-img', 'item-header__stat-img--owned', {['item-header__stat-img--inactive']: !acquireDate})}>✓</div>
-              <Link to="acquired" className="item-header__stat-cta --button-like --primary --tight">{acquireDate ? 'Remove' : 'I bought this'}</Link>
+              <Link to="acquired" className="item-header__stat-cta --button-like --primary --tight" onClick={handleFormClick}>
+                {acquireDate ? 'Remove' : 'I bought this'}
+              </Link>
             </div>
             <div className={cn('item-header__stat')}>
-              <h3 className="item-header__stat-label">{ownership.played ? 'Plays' : 'Not Played'}</h3>
-              <div className={cn('item-header__stat-img', 'item-header__stat-img--played', {['item-header__stat-img--inactive']: !ownership.owned})}>♟</div>
-              <Link to="played" className="item-header__stat-cta --button-like --secondary --tight">I played this</Link>
+              <h3 className="item-header__stat-label">{sessions.length > 0 ? sessions.length + ' Plays' : 'Not Played'}</h3>
+              <div className={cn('item-header__stat-img', 'item-header__stat-img--played', {['item-header__stat-img--inactive']: !sessions.length})}>♟</div>
+              <Link to="session" className="item-header__stat-cta --button-like --secondary --tight" onClick={handleFormClick}>
+                I played this
+              </Link>
             </div>
           </div>
         </div>

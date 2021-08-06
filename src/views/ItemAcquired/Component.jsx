@@ -5,16 +5,17 @@ import {useDispatch} from 'react-redux'
 import cn from 'classnames'
 
 import Page from 'components/Page'
-import Item from 'components/Item'
 
 import useAuth from 'data/auth/useAuth'
 import useCollection from 'data/collection/useCollection'
+import actions from 'state/actions'
 
 import ItemHeader from 'components/Item/components/Header'
+import Input from 'components/ItemForm/components/Input'
 
 import './component.scss'
 
-const baseCn = 'app-played-item'
+const baseCn = 'app-aquired-item'
 
 function Component(props) {
 
@@ -22,6 +23,7 @@ function Component(props) {
 
   const auth = useAuth()
   const collection = useCollection()
+  const dispatch = useDispatch()
   
   if(!auth.isInitialized) {
     return auth.renderLoadingPage()
@@ -41,13 +43,19 @@ function Component(props) {
     return auth.renderLoadingPage()
   }
 
-  const handleSubmit = event => {}
+  const handleFormSubmit = event => {
+    event.preventDefault()
+    dispatch(actions.formSubmittted('purchase'))
+  }
 
   return (
     <Page className={baseCn}>
-      <ItemHeader item={item} shape={collection.shape} imageClassName={`${baseCn}__image`} textClassName={`${baseCn}__text`} />
-      <form onSubmit={handleSubmit} className={`${baseCn}__form`}>
-        Form!
+      <ItemHeader item={item} shape={collection.shape} className={`${baseCn}__header`} displayOwnership={false} />
+      <form onSubmit={handleFormSubmit} className={`${baseCn}__form`}>
+        <Input formName="purchase.properties.dateAcquired" />
+        <Input formName="purchase.properties.price" />
+        <Input formName="purchase.properties.note" />
+        <button className="--button-like --primary">Submit</button>
       </form>
     </Page>
   );
