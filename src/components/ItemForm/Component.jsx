@@ -52,7 +52,7 @@ function Component(props) {
 
   const handleFormSubmit = event => {
     if(!isValid) return
-    dispatch(actions.formSubmittted())
+    dispatch(actions.formSubmittted('item'))
   }
 
   const handleTabClick = attribute => event => updateTab(attribute)

@@ -38,7 +38,7 @@ function Component(props) {
         {status === STATUS.complete && (
           <div className="scan-barcode__complete-controls">
             <h3>{status}</h3>
-            <Input formName="id" showLink={false} />
+            <Input formName="id" />
             <Link to="/app/add/attributes/" className="--button-like --primary">Next: Attributes</Link>
           </div>
         )}

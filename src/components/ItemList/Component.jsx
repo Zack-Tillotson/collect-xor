@@ -14,7 +14,8 @@ function Component(props) {
   return (
     <div className="item-list">
       {items.map(item => {
-        const {properties, ownership = {}} = item
+        const {properties, ownership = {}, purchases} = item
+        const acquireDate = purchases.length > 0 && purchases[0].properties.dateAcquired;
         return (
           <Link to={`/app/${item.id}/`} key={item.id} className="item-list__item item-card">
             {ownership.favorite && (
@@ -70,9 +71,9 @@ function Component(props) {
             </div>
             <div className="item-card__ownership">
               <div className="item-card__ownership-wrapper">
-                {ownership.owned && (
-                  <div key="ownIt" className={cn('item-card__icon', 'item-card__owned', {['item-card__owned--own-it']: ownership.owned})}>
-                    <span className="ownership-icon ownership-icon--own">$</span> Owned {ownership.acquiredDate && `(${ownership.acquiredDate})`}
+                {purchases.length > 0 && (
+                  <div key="ownIt" className={cn('item-card__icon', 'item-card__owned', {['item-card__owned--own-it']: purchases.length > 0})}>
+                    <span className="ownership-icon ownership-icon--own">$</span> Owned {acquireDate && `(${acquireDate})`}
                   </div>
                 )}
                 

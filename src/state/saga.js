@@ -15,12 +15,28 @@ import formSelector from 'state/selectors/form'
 const formCacheName = 'item-form'
 
 function* handleFormSubmitted(action) {
-  const {id, properties = {}, ownership = {}} = yield(select(formSelector))
-  const {user} = yield call(getCurrentAuthData)
-  const result = yield call(collection.upsertItem, {properties, ownership}, {id, user})
-  
-  const loc = id ? `/app/${id}/` : '/app/';
-  window.hackHistory.push(loc)
+  const formType = action.payload;
+  switch(formType) {
+    case 'item': {
+      const {id, properties = {}, ownership = {}} = yield(select(formSelector))
+      const {user} = yield call(getCurrentAuthData)
+      const result = yield call(collection.upsertItem, {properties, ownership}, {id, user})
+      
+      const loc = id ? `/app/${id}/` : '/app/';
+      window.hackHistory.push(loc)
+      return true
+    }
+    case 'purchase': {
+      const id = window.hackHistory.location.pathname.split('/')[2] // ugh
+      const {purchase = {}} = yield(select(formSelector))
+      const {user} = yield call(getCurrentAuthData)
+      const result = yield call(collection.upsertPurchase, purchase, {id, user})
+      
+      window.hackHistory.push(`/app/${id}/`)
+      return true
+    }
+    default: throw new Error('Form type not supported - ' + formType)
+  }
 }
 
 function* handleItemUpdated(action) {

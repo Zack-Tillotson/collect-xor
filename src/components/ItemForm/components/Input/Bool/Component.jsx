@@ -1,14 +1,9 @@
 import React, {useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux'
-import {Link} from 'react-router-dom'
 import cn from 'classnames'
 
-import actions from 'state/actions'
 import useCollection from 'data/collection/useCollection'
 
 import './component.scss'
-
-const formSelector = state => state.addNewItemForm
 
 function Component(props) {
   const {

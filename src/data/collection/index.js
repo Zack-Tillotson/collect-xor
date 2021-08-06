@@ -69,7 +69,10 @@ function initialize(store, collectionType) {
           .ref(`users/${user.uid}/items`)
           .on('value', snapshot => {
               const itemsObj = snapshot.val() || {}
-              const items = Object.keys(itemsObj).map(id => ({id, ...itemsObj[id]}))
+              const items = Object.keys(itemsObj).map(id => {
+                const purchases = Object.keys(itemsObj[id].purchases || {}).reduce((purchases, key) => [...purchases, {id: key, ...itemsObj[id].purchases[key]}], [])
+                return {...itemsObj[id], id, purchases}
+              })
               getStore().dispatch(actions.dataLoaded({id: 'items', data: items}))
               resolve(items)
             })
@@ -102,6 +105,18 @@ function upsertItem(item, {id, user}) {
   }
 }
 
+function upsertPurchase(purchase, {id, user}) {
+  const purchases = getDb().ref(`users/${user.uid}/items/${id}/purchases`)
+  if(purchase.id) {
+    purchases.child(purchase.id).update(purchase)
+    return id
+  } else {
+    const key = purchases.push().key
+    purchases.update({[key]: purchase})
+    return key
+  }
+}
+
 function deleteItem({id, user}) {
   return getDb().ref(`users/${user.uid}/items/${id}`).remove()
 }
@@ -113,5 +128,6 @@ export default {
   initialize,
 
   upsertItem,
+  upsertPurchase,
   deleteItem,
 }

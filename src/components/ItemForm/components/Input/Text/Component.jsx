@@ -8,8 +8,6 @@ import useCollection from 'data/collection/useCollection'
 
 import './component.scss'
 
-const formSelector = state => state.addNewItemForm
-
 function Component(props) {
   const {
     className,
@@ -19,8 +17,6 @@ function Component(props) {
     value,
     onUpdate,
   } = props
-
-  const collection = useCollection()
 
   const handleChange = event => onUpdate(event.target.value)
 
