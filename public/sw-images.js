@@ -3,8 +3,8 @@ const cacheVersion = 'image-cache';
 self.addEventListener('fetch', event => {
   console.log('sw-images', cacheVersion, 'fetch');
 
-  // This SW only handles jpg files
-  if(!['jpg', 'png', 'webp'].includes(event.request.url.slice(-4))) return;
+  // This SW only handles image files
+  if(!['jpg', 'png', 'webp'].includes(event.request.url.slice(-3))) return;
 
   // This method instructs the browser to replace its standard request
   // resolution with the given promise. Here we first open the cache,
