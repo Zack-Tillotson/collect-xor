@@ -619,7 +619,7 @@ module.exports = function(webpackEnv) {
             // a route with query params (e.g. auth callbacks).
             new RegExp('/[^/?]+\\.[^/]+$'),
           ],
-          importScripts(['/sw-images.js']),
+          importScripts(["/sw-images.js"]),
         }),
       // TypeScript type checking
       useTypeScript &&
