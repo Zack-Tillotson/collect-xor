@@ -23,7 +23,8 @@ self.addEventListener('fetch', event => {
         console.log(cacheVersion, 'fetch', 'didn\'t find response in cache, doing fetch');
         return fetch(event.request)
           .then(response => {
-            caches.open(cacheVersion).then(cache => cache.put(event.request, response.clone()))
+            const responseClone = response.clone()
+            caches.open(cacheVersion).then(cache => cache.put(event.request, responseClone))
             return response
           })
       })
