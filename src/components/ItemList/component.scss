@@ -6,6 +6,10 @@
   grid-gap: var(--pad2);
 }
 
+.item-list__control-label {
+  margin-right: var(--pad);
+}
+
 .item-card {
   position: relative;
 

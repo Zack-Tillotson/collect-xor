@@ -3,7 +3,7 @@
 
   .app-home__header {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
 
     @media(min-width: 800px) {
       flex-flow: row nowrap;
@@ -12,5 +12,6 @@
 
   .app-home__title {
     flex: 1;
+    line-height: 2.5rem;
   }
 }

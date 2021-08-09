@@ -1,19 +1,91 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import cn from 'classnames'
 
+import { useDispatch, useSelector } from 'react-redux';
+
 import ItemFavorite from 'components/ItemFavorite'
 
+import actions from 'state/actions'
+import formSelector from 'state/selectors/form'
+
 import './component.scss'
+
+const sortOptions = [{
+  value: 'name',
+  copy: 'Name',
+  getValue: item => item.properties.name.toLowerCase(),
+  defaultValue: '',
+}, {
+  value: 'favorite',
+  copy: 'Favorite',
+  getValue: item => item.ownership.favorite ? -1 : 1,
+  defaultValue: 0,
+}, {
+  value: 'acquired',
+  copy: 'Date Acquired',
+  getValue: item => item.purchases[0].properties.dateAcquired,
+  defaultValue: '',
+  reverse: true,
+}, {
+  value: 'released',
+  copy: 'Date Released',
+  getValue: item => item.properties.releaseDate,
+  defaultValue: '',
+  reverse: true,
+},{
+  value: 'played',
+  copy: 'Played Recently',
+  getValue: item => item.sessions[item.sessions.length - 1].properties.date,
+  defaultValue: '',
+  reverse: true,
+}]
+
+const sortItems = ({getValue, defaultValue, reverse = false}) => (a, b) => {
+  let aValue = defaultValue
+  let bValue = defaultValue
+  const reverser = reverse ? -1 : 1
+  try {
+    aValue = getValue(a)
+  } catch(e) {}
+  try {
+    bValue = getValue(b)
+  } catch(e) {}
+
+  if(aValue == bValue) return 0
+  return reverser * (aValue > bValue ? 1 : -1)
+}
 
 function Component(props) {
   const {items} = props
 
-  if(!items) return null
+  const [sortedItems, updateSortedItems] = useState(null)
+  const dispatch = useDispatch()
+  const {listSortOrder = sortOptions[0].value} = useSelector(formSelector)
+
+  const sortOrder = sortOptions.find(option => option.value === listSortOrder)
+
+  useEffect(() => {
+    updateSortedItems([...items].sort(sortItems(sortOrder)))
+  }, [items, listSortOrder])
+
+  if(!sortedItems) return null
+
+  const handleSortChange = event => dispatch(actions.formValuesUpdated({name: 'listSortOrder', value: event.target.value}))
 
   return (
     <div className="item-list">
-      {items.map(item => {
+      <div className="item-list__controls">
+        <label htmlFor="sort-options" className="item-list__control-label">Sort By</label>
+        <select name="sort-options" id="sort-options" className="--button-like --hollow --tight" onChange={handleSortChange} value={sortOrder.value}>
+          {sortOptions.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.copy}
+            </option>
+          ))}
+        </select>
+      </div>
+      {sortedItems.map(item => {
         const {properties, ownership = {}, purchases, sessions} = item
         const acquireDate = purchases.length > 0 && purchases[0].properties.dateAcquired;
         return (

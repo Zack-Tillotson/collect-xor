@@ -33,7 +33,7 @@ function Component(props) {
   return (
     <Page className="app-home">
       <div className="app-home__header">
-        <h1 className="app-home__title">Your game list</h1>
+        <h1 className="app-home__title">Collection</h1>
         <AddItem className="app-home__add-item" />
       </div>
       <ItemList items={collection.items} />

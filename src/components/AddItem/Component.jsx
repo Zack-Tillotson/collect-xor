@@ -15,7 +15,7 @@ function Component(props) {
     <div className={cn('add-item', props.className)}>
       <Link 
         to="/app/add/barcode/"
-        className="add-item-button --button-like --primary"
+        className="add-item-button --button-like --primary --tight"
         onClick={handleClick}>
           Add item
       </Link>
