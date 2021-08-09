@@ -13,7 +13,9 @@ function Component(props) {
   const handleClick = event => props.onClick && props.onClick(event)
   return (
     <div className={cn('item-favorite', props.className, {['item-favorite--active']: props.onClick, ['item-favorite--is-favorite']: props.isFavorite})} onClick={handleClick}>
-      {props.isFavorite ? 'Favorite' : 'Click to favorite'}
+      <span className="item-favorite__inner">
+        {props.isFavorite ? 'Favorite' : 'Click to favorite'}
+      </span>
     </div>
   )
 }

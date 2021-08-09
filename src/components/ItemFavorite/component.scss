@@ -5,8 +5,10 @@
   padding: var(--pad-quart) var(--pad2);
 
   font-size: .8rem;
-  font-weight: bold;  
-  
+  font-weight: bold;
+
+  color: var(--color-contrast-font-primary);
+
   &:before {
     content: ' ';
     position: absolute;
@@ -14,17 +16,19 @@
     right: 0;
     top: 0;
     bottom: 0;
-    opacity: .2;
     transform: skew(30deg);
-    background: var(--color-bg-offset);
+    background: var(--color-contrast-bg);
   }
 
   &--is-favorite {
-    color: var(--color-red-offset);
     text-transform: uppercase;
     
     &:before {
       background: var(--color-red);
     }
   }
+}
+
+.item-favorite__inner {
+  position: relative;
 }
