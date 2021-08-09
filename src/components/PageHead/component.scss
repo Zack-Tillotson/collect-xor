@@ -16,7 +16,7 @@
     display: none;
   }
   
-  @media(prefer-color-scheme: light) {
+  @media(prefers-color-scheme: dark) {
     .page-head__logo-title-light {
       display: none;
     }
